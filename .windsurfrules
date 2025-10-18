@@ -1,0 +1,9 @@
+# About this project
+
+This is a mtgo bot frontend using mezzio
+The code is PHP
+When some coded is needed assume that you are a senior PHP developer
+
+# Rules
+Don't change files in vendor directory
+Before any commit run ```composer cs-fix```
