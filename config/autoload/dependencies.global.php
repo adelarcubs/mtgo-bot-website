@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+use App\Handler\ApiHandler;
+use App\Handler\ApiHandlerFactory;
+use App\Handler\Auth\LogoutHandler;
+use App\Handler\Auth\LogoutHandlerFactory;
+use App\Handler\OurBotsHandler;
+use App\Handler\OurBotsHandlerFactory;
+use App\Handler\ProfileHandler;
+use App\Handler\ProfileHandlerFactory;
+use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\AuthenticationMiddlewareFactory;
+use App\Middleware\SessionMiddlewareFactory;
+use Mezzio\Session\SessionMiddleware;
+
 return [
     // Provides application-wide services.
     // We recommend using fully-qualified class names whenever possible as
@@ -21,18 +34,19 @@ return [
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
-            \App\Middleware\AuthenticationMiddleware::class => \App\Middleware\AuthenticationMiddlewareFactory::class,
-            \App\Handler\ApiHandler::class => \App\Handler\ApiHandlerFactory::class,
-            \App\Handler\ProfileHandler::class => \App\Handler\ProfileHandlerFactory::class,
-            \App\Handler\Auth\LogoutHandler::class => \App\Handler\Auth\LogoutHandlerFactory::class,
-            \Mezzio\Session\SessionMiddleware::class => \App\Middleware\SessionMiddlewareFactory::class,
+            OurBotsHandler::class           => OurBotsHandlerFactory::class,
+            AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
+            ApiHandler::class               => ApiHandlerFactory::class,
+            ProfileHandler::class           => ProfileHandlerFactory::class,
+            LogoutHandler::class            => LogoutHandlerFactory::class,
+            SessionMiddleware::class        => SessionMiddlewareFactory::class,
         ],
-        
+
         // Register middleware for lazy loading
         'lazy_services' => [
             'proxies_target_dir' => 'data/cache/proxies',
-            'proxies_namespace' => 'Proxies',
-            'write_proxy_files' => false,
+            'proxies_namespace'  => 'Proxies',
+            'write_proxy_files'  => false,
         ],
     ],
 ];

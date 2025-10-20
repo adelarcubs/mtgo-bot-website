@@ -12,14 +12,18 @@
         </div>
         <!-- Links -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a href="{#{ path('our-bots') }#}" class="nav-link">
-                        Nossos Bots
+                    <a href="{{ path('home') }}" class="nav-link{{ path() == '/' ? ' active' : '' }}">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('our-bots') }}" class="nav-link{{ path() == '/our-bots' ? ' active' : '' }}">
+                        Our Bots
                     </a>
                 </li>
                 {% include '@layout/menu/top-menu-logged.html.twig' %}
-
                 {% include '@layout/menu/top-menu-unlogged.html.twig' %}
             </ul>
         </div>

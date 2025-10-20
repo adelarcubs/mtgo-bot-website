@@ -10,9 +10,9 @@ class LogoutHandlerFactory
 {
     public function __invoke(ContainerInterface $container): LogoutHandler
     {
-        $config = $container->get('config')['authentication'] ?? [];
+        $config   = $container->get('config')['authentication'] ?? [];
         $loginUrl = $config['login_url'] ?? '/login';
-        
+
         return new LogoutHandler($loginUrl);
     }
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Middleware\AuthenticationMiddleware;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
 use Mezzio\Handler\NotFoundHandler;
@@ -43,12 +44,12 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/api', $apiMiddleware);
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
-    
+
     // Add session middleware for web requests
     $app->pipe(SessionMiddleware::class);
-    
+
     // Add authentication middleware for all routes
-    $app->pipe(\App\Middleware\AuthenticationMiddleware::class);
+    $app->pipe(AuthenticationMiddleware::class);
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Mezzio\Router\RouteResult request attribute.

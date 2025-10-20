@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use Laminas\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Authentication\UserInterface;
-use Mezzio\Session\SessionMiddleware;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 
 class ProfileHandler implements RequestHandlerInterface
 {
@@ -27,22 +26,22 @@ class ProfileHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $user = $request->getAttribute(UserInterface::class);
-        
+
         // If user is not authenticated, redirect to login
-        if (!$user instanceof UserInterface) {
+        if (! $user instanceof UserInterface) {
             return new RedirectResponse($this->loginUrl);
         }
 
         // Get user data from the session
         $userData = [
             'identity' => $user->getIdentity(),
-            'roles' => $user->getRoles(),
-            'details' => $user->getDetails()
+            'roles'    => $user->getRoles(),
+            'details'  => $user->getDetails(),
         ];
 
         return new HtmlResponse(
             $this->renderer->render('app::profile', [
-                'user' => $userData,
+                'user'   => $userData,
                 'layout' => 'layout::default',
             ])
         );

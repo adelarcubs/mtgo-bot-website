@@ -1,0 +1,54 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Our Bots - MTGO Bot Network{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-4">
+        <h1>Our MTGO Bots</h1>
+        <p class="lead">Check the status of our trading bots below.</p>
+        
+        <div class="row mt-4">
+            {% for bot in bots %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ bot.name }}
+                                {% if bot.status == 'Online' %}
+                                    <span class="badge bg-success float-end">{{ bot.status }}</span>
+                                {% else %}
+                                    <span class="badge bg-danger float-end">{{ bot.status }}</span>
+                                {% endif %}
+                            </h5>
+                            <p class="card-text">{{ bot.description }}</p>
+                            <div class="mt-2">
+                                <small class="text-muted">Uptime: {{ bot.uptime }}</small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <a href="#" class="btn btn-primary btn-sm">Trade Now</a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm ms-2">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>About Our Bot Network</h4>
+                        <p>Our MTGO bot network is designed to provide you with the best trading experience possible. With multiple bots online 24/7, you can always find competitive prices and instant trades.</p>
+                        <ul>
+                            <li>24/7 availability</li>
+                            <li>Competitive buy and sell prices</li>
+                            <li>Fast and reliable trades</li>
+                            <li>Large collection of cards in stock</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -14,15 +14,15 @@ class ApiHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $token = $request->getAttribute('token');
-        
+
         return new JsonResponse([
-            'status' => 'success',
-            'message' => 'API request successful',
+            'status'     => 'success',
+            'message'    => 'API request successful',
             'token_info' => [
-                'id' => $token['id'] ?? null,
-                'scopes' => $token['scopes'] ?? [],
-                'description' => $token['description'] ?? ''
-            ]
+                'id'          => $token['id'] ?? null,
+                'scopes'      => $token['scopes'] ?? [],
+                'description' => $token['description'] ?? '',
+            ],
         ]);
     }
 }
