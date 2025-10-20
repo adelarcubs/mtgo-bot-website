@@ -23,6 +23,9 @@ return [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
             \App\Middleware\AuthenticationMiddleware::class => \App\Middleware\AuthenticationMiddlewareFactory::class,
             \App\Handler\ApiHandler::class => \App\Handler\ApiHandlerFactory::class,
+            \App\Handler\ProfileHandler::class => \App\Handler\ProfileHandlerFactory::class,
+            \App\Handler\Auth\LogoutHandler::class => \App\Handler\Auth\LogoutHandlerFactory::class,
+            \Mezzio\Session\SessionMiddleware::class => \App\Middleware\SessionMiddlewareFactory::class,
         ],
         
         // Register middleware for lazy loading

@@ -38,6 +38,13 @@ use Psr\Container\ContainerInterface;
  */
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
+    // Public routes
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+    
+    // Profile routes (protected by authentication)
+    $app->get('/profile', App\Handler\ProfileHandler::class, 'profile');
+    
+    // Authentication routes
+    $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
 };
