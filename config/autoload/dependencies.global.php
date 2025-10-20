@@ -21,6 +21,15 @@ return [
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
+            \App\Middleware\AuthenticationMiddleware::class => \App\Middleware\AuthenticationMiddlewareFactory::class,
+            \App\Handler\ApiHandler::class => \App\Handler\ApiHandlerFactory::class,
+        ],
+        
+        // Register middleware for lazy loading
+        'lazy_services' => [
+            'proxies_target_dir' => 'data/cache/proxies',
+            'proxies_namespace' => 'Proxies',
+            'write_proxy_files' => false,
         ],
     ],
 ];
