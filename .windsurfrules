@@ -7,4 +7,4 @@ When some coded is needed assume that you are a senior PHP developer
 # Rules
 Don't change files in vendor directory
 Before any commit run ```composer cs-fix```
-When commit add in message that this commit is execute using "vibe code"
+When commit add in message that this commit is execute using vibe code
