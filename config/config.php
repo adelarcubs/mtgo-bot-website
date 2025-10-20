@@ -13,6 +13,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Laminas\Session\ConfigProvider::class,
     \Mezzio\Twig\ConfigProvider::class,
     \Mezzio\Tooling\ConfigProvider::class,
     \Mezzio\Router\LaminasRouter\ConfigProvider::class,

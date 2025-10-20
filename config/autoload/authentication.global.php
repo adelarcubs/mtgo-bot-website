@@ -14,5 +14,10 @@ return [
             // Add more tokens as needed
         ],
         'realm' => 'API',
+        'public_routes' => [
+            '/',
+            '/login',
+            '/register',
+        ],
     ],
 ];
