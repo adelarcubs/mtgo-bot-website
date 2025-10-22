@@ -37,15 +37,35 @@ use Psr\Container\ContainerInterface;
  * );
  */
 
-return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
-    // Public routes
+/**
+ * Register API routes
+ */
+$registerApiRoutes = function (Application $app): void {
+    $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+    // Add more API routes here
+};
+
+/**
+ * Register public routes
+ */
+$registerPublicRoutes = function (Application $app): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/our-bots', App\Handler\OurBotsHandler::class, 'our-bots');
-    $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
-    
-    // Profile routes (protected by authentication)
+    // Add more public routes here
+};
+
+/**
+ * Register authenticated routes
+ */
+$registerAuthenticatedRoutes = function (Application $app): void {
     $app->get('/profile', App\Handler\ProfileHandler::class, 'profile');
-    
-    // Authentication routes
     $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
+    // Add more authenticated routes here
+};
+
+return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes): void {
+    // Register all route groups
+    $registerPublicRoutes($app);
+    $registerApiRoutes($app);
+    $registerAuthenticatedRoutes($app);
 };
