@@ -60,7 +60,8 @@
         "mezzio/mezzio-laminasrouter": "^3.9.0",
         "mezzio/mezzio-session": "^1.17",
         "mezzio/mezzio-session-ext": "^1.21",
-        "mezzio/mezzio-twigrenderer": "^2.15"
+        "mezzio/mezzio-twigrenderer": "^2.15",
+        "roave/psr-container-doctrine": "^3.0"
     },
     "require-dev": {
         "filp/whoops": "^2.15.4",
@@ -102,6 +103,7 @@
             "@test"
         ],
         "clear-config-cache": "php bin/clear-config-cache.php",
+        "doctrine": "php bin/doctrine.php",
         "enable-codestandard": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",

@@ -2,38 +2,27 @@
 
 declare(strict_types=1);
 
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Tools\Setup;
-use Psr\Container\ContainerInterface;
+use Doctrine\ORM\Mapping\Driver\AttributeDriver;
+use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
+use Roave\PsrContainerDoctrine\EntityManagerFactory;
 
 return [
     'dependencies' => [
         'factories' => [
-            'doctrine.entity_manager.orm_default' => function (ContainerInterface $container) {
-                $config         = $container->get('config');
-                $doctrineConfig = $config['doctrine'];
-
-                // Setup Doctrine
-                $doctrine = Setup::createAttributeMetadataConfiguration(
-                    $doctrineConfig['entity_paths'],
-                    $doctrineConfig['dev_mode'] ?? false,
-                    $doctrineConfig['proxy_dir'],
-                    $doctrineConfig['cache']
-                );
-
-                // Get database connection configuration
-                $connection = $config['database'];
-                return EntityManager::create($connection, $doctrine);
-            },
+            'doctrine.entity_manager.orm_default'
+                => EntityManagerFactory::class,
         ],
     ],
     'doctrine'     => [
-        'entity_paths'                 => [
-            __DIR__ . '/../src/App/Entity',
+        'driver' => [
+            'orm_default' => [
+                'class'   => MappingDriverChain::class,
+                'drivers' => ['App\Entity' => 'app_entity'],
+            ],
+            'app_entity'  => [
+                'class' => AttributeDriver::class,
+                'paths' => [__DIR__ . '/../../src/App/Entity'],
+            ],
         ],
-        'cache_dir'                    => 'data/cache/doctrine',
-        'proxy_dir'                    => 'data/doctrine/proxy',
-        'cache'                        => null,
-        'use_simple_annotation_reader' => false,
     ],
 ];

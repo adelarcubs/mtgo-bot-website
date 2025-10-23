@@ -15,7 +15,6 @@ use App\Middleware\AuthenticationMiddlewareFactory;
 use App\Middleware\SessionMiddlewareFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Mezzio\Session\SessionMiddleware;
 
 return [
@@ -27,7 +26,6 @@ return [
         // key is the alias name, the value is the service to which it points.
         'aliases' => [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
-            'doctrine.entity_manager.orm_default' => EntityManagerInterface::class,
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
@@ -44,7 +42,6 @@ return [
             ProfileHandler::class           => ProfileHandlerFactory::class,
             LogoutHandler::class            => LogoutHandlerFactory::class,
             SessionMiddleware::class        => SessionMiddlewareFactory::class,
-            EntityManagerInterface::class   => 'doctrine.entity_manager.orm_default',
             UserRepository::class           => UserRepositoryFactory::class,
         ],
 
