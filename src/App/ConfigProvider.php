@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Twig\TranslationExtension;
+
 /**
  * The configuration provider for the App module
  *
@@ -22,6 +24,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'twig'         => $this->getTwigConfig(),
         ];
     }
 
@@ -50,6 +53,19 @@ class ConfigProvider
                 'app'    => ['templates/app'],
                 'error'  => ['templates/error'],
                 'layout' => ['templates/layout'],
+            ],
+        ];
+    }
+
+    /**
+     * Returns the Twig configuration
+     */
+    public function getTwigConfig(): array
+    {
+        return [
+            'extensions' => [
+                // Add Twig extensions here
+                TranslationExtension::class,
             ],
         ];
     }

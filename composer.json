@@ -53,6 +53,8 @@
         "laminas/laminas-component-installer": "^2.6 || ^3.5",
         "laminas/laminas-config-aggregator": "^1.18",
         "laminas/laminas-diactoros": "^3.5.0",
+        "laminas/laminas-i18n": "^2.31",
+        "laminas/laminas-i18n-resources": "^2.13",
         "laminas/laminas-servicemanager": "^3.22",
         "laminas/laminas-stdlib": "^3.20",
         "mezzio/mezzio": "^3.20.1",

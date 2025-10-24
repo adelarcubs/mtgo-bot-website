@@ -1,10 +1,10 @@
 <li class="nav-item">
     <a href="{{ path('auth.register') }}" class="nav-link{{ path() == '/register' ? ' active' : '' }}">
-        Registrar
+        {{ translate('Register') }}
     </a>
 </li>
 <li class="nav-item">
     <a href="{{ path('auth.login') }}" class="nav-link{{ path() == '/login' ? ' active' : '' }}">
-        Login
+        {{ translate('Login') }}
     </a>
 </li>

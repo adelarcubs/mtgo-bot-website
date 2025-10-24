@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\LocaleMiddleware;
 use App\Middleware\TemplateDataMiddleware;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
@@ -48,6 +49,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Add session middleware for web requests
     $app->pipe(SessionMiddleware::class);
+
+    // Add locale middleware to handle language selection
+    $app->pipe(LocaleMiddleware::class);
 
     // Add authentication middleware for all routes
     $app->pipe(AuthenticationMiddleware::class);

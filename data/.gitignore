@@ -1,4 +1,6 @@
 *
-!cache
+!cache/
 !cache/.gitkeep
+!languages/
+!languages/**/*
 !.gitignore
