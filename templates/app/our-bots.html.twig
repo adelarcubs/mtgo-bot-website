@@ -12,6 +12,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Name</th>
+                        <th>Description</th>
                         <th>Status</th>
                         <th>Last Update</th>
                     </tr>
@@ -19,7 +20,8 @@
                 <tbody>
                     {% for bot in bots %}
                         <tr>
-                            <td>{{ bot.name }}</td>
+                            <td><strong>{{ bot.name }}</strong></td>
+                            <td>{{ bot.description|default('No description available') }}</td>
                             <td>
                                 {% if bot.lastStatus %}
                                     <span class="badge {% if 'online' in bot.lastStatus|lower %}bg-success{% else %}bg-warning{% endif %}">
@@ -39,7 +41,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="3" class="text-center">No active bots found</td>
+                            <td colspan="4" class="text-center">No active bots found</td>
                         </tr>
                     {% endfor %}
                 </tbody>
