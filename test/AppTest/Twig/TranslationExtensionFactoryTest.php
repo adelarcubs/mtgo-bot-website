@@ -7,6 +7,7 @@ namespace AppTest\Twig;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
 use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -16,13 +17,13 @@ use RuntimeException;
 class TranslationExtensionFactoryTest extends TestCase
 {
     private ContainerInterface&MockObject $container;
-    private TranslatorInterface&MockObject $translator;
+    private TranslatorInterface $translator;
     private TranslationExtensionFactory $factory;
 
     protected function setUp(): void
     {
         $this->container  = $this->createMock(ContainerInterface::class);
-        $this->translator = $this->createMock(Translator::class);
+        $this->translator = $this->createMock(TranslatorInterface::class);
         $this->factory    = new TranslationExtensionFactory();
     }
 
