@@ -6,7 +6,6 @@ namespace AppTest\Twig;
 
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
-use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
