@@ -17,7 +17,7 @@
                         <div class="alert alert-danger">{{ error|e }}</div>
                     {% endif %}
 
-                    <form method="post" action="{{ path('register') }}">
+                    <form method="post" action="{{ path('auth.register') }}">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
                             <input 
@@ -82,7 +82,7 @@
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Already have an account? <a href="{{ path('login') }}">Sign in</a>
+                    Already have an account? <a href="{{ path('auth.login') }}">Sign in</a>
                 </div>
             </div>
         </div>

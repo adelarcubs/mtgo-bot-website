@@ -1,10 +1,10 @@
 <li class="nav-item">
-    <a href="{#{ path('our-bots') }#}" class="nav-link">
+    <a href="{{ path('auth.register') }}" class="nav-link{{ path() == '/register' ? ' active' : '' }}">
         Registrar
     </a>
 </li>
 <li class="nav-item">
-    <a href="{#{ path('login') }#}" class="nav-link">
+    <a href="{{ path('auth.login') }}" class="nav-link{{ path() == '/login' ? ' active' : '' }}">
         Login
     </a>
 </li>
