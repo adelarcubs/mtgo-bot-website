@@ -37,6 +37,16 @@ class AuthenticationMiddleware implements MiddlewareInterface
     {
         $path = $request->getUri()->getPath();
 
+        /** @var SessionInterface $session */
+        $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+
+        // Check if user is authenticated in session
+        $user = $session->get('user');
+        if ($user) {
+            // Add user to the request attributes
+            $request = $request->withAttribute(UserInterface::class, $user);
+        }
+
         // Check if the route is public
         if ($this->isPublicRoute($path)) {
             return $handler->handle($request);
@@ -122,9 +132,6 @@ class AuthenticationMiddleware implements MiddlewareInterface
             // Redirect to login page
             return new RedirectResponse($this->config['login_url'] ?? '/login');
         }
-
-        // Add user to the request attributes
-        $request = $request->withAttribute(UserInterface::class, $user);
 
         return $handler->handle($request);
     }

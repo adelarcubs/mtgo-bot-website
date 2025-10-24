@@ -23,8 +23,11 @@
                         Our Bots
                     </a>
                 </li>
+                {% if logged_in_user %}
                 {% include '@layout/menu/top-menu-logged.html.twig' %}
+                {% else %}
                 {% include '@layout/menu/top-menu-unlogged.html.twig' %}
+                {% endif %}
             </ul>
         </div>
     </div>

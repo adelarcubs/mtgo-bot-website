@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Middleware\AuthenticationMiddleware;
+use App\Middleware\TemplateDataMiddleware;
 use Laminas\Stratigility\Middleware\ErrorHandler;
 use Mezzio\Application;
 use Mezzio\Handler\NotFoundHandler;
@@ -50,6 +51,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 
     // Add authentication middleware for all routes
     $app->pipe(AuthenticationMiddleware::class);
+
+    $app->pipe(TemplateDataMiddleware::class);
 
     // Register the routing middleware in the middleware pipeline.
     // This middleware registers the Mezzio\Router\RouteResult request attribute.
