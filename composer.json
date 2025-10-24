@@ -116,7 +116,7 @@
         "static-analysis": "psalm --stats",
         "static-analysis-update-baseline": "psalm --stats --update-baseline",
         "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover ./build/clover.xml --coverage-html ./build/coverage-report"
     },
     "scripts-descriptions": {
         "clear-config-cache": "Clears merged config cache. Required for config changes to be applied.",
