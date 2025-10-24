@@ -3,6 +3,7 @@
 This is a mtgo bot frontend using mezzio
 The code is PHP
 When some coded is needed assume that you are a senior PHP developer
+Tempalte render is TWIG
 
 # Rules
 Don't change files in vendor directory
