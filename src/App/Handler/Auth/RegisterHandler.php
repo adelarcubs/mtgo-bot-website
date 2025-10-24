@@ -59,10 +59,11 @@ class RegisterHandler implements RequestHandlerInterface
         $errors = $this->validateRegistration($data);
 
         if (empty($errors)) {
-            $user = new User();
-            $user->setEmail($formData['email']);
-            $user->setName($formData['name']);
-            $user->setPassword(password_hash($data['password'], PASSWORD_DEFAULT));
+            $user = new User(
+                $formData['email'],
+                $formData['name'],
+                password_hash($data['password'], PASSWORD_DEFAULT)
+            );
 
             $this->userRepository->save($user, true);
 
@@ -88,7 +89,7 @@ class RegisterHandler implements RequestHandlerInterface
             $errors['email'] = 'Email is required';
         } elseif (! filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = 'Invalid email format';
-        } elseif ($this->userRepository->findOneBy(['email' => $data['email']])) {
+        } elseif ($this->userRepository->findOneByEmail($data['email'])) {
             $errors['email'] = 'Email already registered';
         }
 
