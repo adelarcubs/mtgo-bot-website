@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
+use App\Handler\Auth\LoginHandler;
+use App\Handler\Auth\LoginHandlerFactory;
 use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
 use App\Handler\OurBotsHandler;
@@ -42,6 +44,7 @@ return [
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
             ProfileHandler::class           => ProfileHandlerFactory::class,
+            LoginHandler::class             => LoginHandlerFactory::class,
             LogoutHandler::class            => LogoutHandlerFactory::class,
             SessionMiddleware::class        => SessionMiddlewareFactory::class,
             UserRepository::class           => UserRepositoryFactory::class,

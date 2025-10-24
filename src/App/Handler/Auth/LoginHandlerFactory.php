@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Handler\Auth;
+
+use Doctrine\ORM\EntityManager;
+use Mezzio\Template\TemplateRendererInterface;
+use Psr\Container\ContainerInterface;
+
+class LoginHandlerFactory
+{
+    public function __invoke(ContainerInterface $container): LoginHandler
+    {
+        return new LoginHandler(
+            $container->get(TemplateRendererInterface::class),
+            $container->get(EntityManager::class)
+        );
+    }
+}

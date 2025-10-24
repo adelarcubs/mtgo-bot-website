@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Handler;
 
 use Laminas\Diactoros\Response\HtmlResponse;
-use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -29,14 +28,14 @@ class ProfileHandler implements RequestHandlerInterface
 
         // If user is not authenticated, redirect to login
         if (! $user instanceof UserInterface) {
-            return new RedirectResponse($this->loginUrl);
+            // return new RedirectResponse($this->loginUrl);
         }
 
         // Get user data from the session
         $userData = [
-            'identity' => $user->getIdentity(),
-            'roles'    => $user->getRoles(),
-            'details'  => $user->getDetails(),
+            'identity' => $user['id'],
+            'roles'    => [],
+            'details'  => $user['email'],
         ];
 
         return new HtmlResponse(
