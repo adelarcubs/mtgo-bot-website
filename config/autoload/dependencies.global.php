@@ -13,6 +13,8 @@ use App\Handler\ProfileHandlerFactory;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\AuthenticationMiddlewareFactory;
 use App\Middleware\SessionMiddlewareFactory;
+use App\Repository\MtgoBotRepository;
+use App\Repository\MtgoBotRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use Mezzio\Session\SessionMiddleware;
@@ -43,6 +45,7 @@ return [
             LogoutHandler::class            => LogoutHandlerFactory::class,
             SessionMiddleware::class        => SessionMiddlewareFactory::class,
             UserRepository::class           => UserRepositoryFactory::class,
+            MtgoBotRepository::class        => MtgoBotRepositoryFactory::class,
         ],
 
         // Register middleware for lazy loading
