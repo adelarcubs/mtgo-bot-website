@@ -6,6 +6,8 @@ use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
 use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
+use App\Handler\Auth\RegisterHandler;
+use App\Handler\Auth\RegisterHandlerFactory;
 use App\Handler\OurBotsHandler;
 use App\Handler\OurBotsHandlerFactory;
 use App\Handler\ProfileHandler;
@@ -43,6 +45,7 @@ return [
             ApiHandler::class               => ApiHandlerFactory::class,
             ProfileHandler::class           => ProfileHandlerFactory::class,
             LogoutHandler::class            => LogoutHandlerFactory::class,
+            RegisterHandler::class          => RegisterHandlerFactory::class,
             SessionMiddleware::class        => SessionMiddlewareFactory::class,
             UserRepository::class           => UserRepositoryFactory::class,
             MtgoBotRepository::class        => MtgoBotRepositoryFactory::class,

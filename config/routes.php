@@ -43,6 +43,7 @@ use Psr\Container\ContainerInterface;
 $registerPublicRoutes = function (Application $app): void {
     $app->get('/', App\Handler\HomePageHandler::class, 'home');
     $app->get('/our-bots', App\Handler\OurBotsHandler::class, 'our-bots');
+    $app->route('/register', App\Handler\Auth\RegisterHandler::class, ['GET', 'POST'], 'register');
 };
 
 /**
