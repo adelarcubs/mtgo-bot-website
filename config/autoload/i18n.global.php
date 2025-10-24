@@ -15,8 +15,8 @@ return [
         'translation_file_patterns' => [
             [
                 'type'     => 'gettext',
-                'base_dir' => getcwd() . '/data/languages',
-                'pattern'  => '%s/LC_MESSAGES/default.mo',
+                'base_dir' => getcwd() . '/data/languages/locale',
+                'pattern'  => '%s.mo',
             ],
         ],
     ],

@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+# Navigation - Begin
+msgid "t.home"
+msgstr "Home"
+
+msgid "t.our.bots"
+msgstr "Our bots"
+
+msgid "t.my.rent"
+msgstr "My rent"
+
+msgid "t.my.collection"
+msgstr "My collection"
+
+msgid "t.cart"
+msgstr "Cart"
+
+msgid "t.my.account"
+msgstr "My account"
+
+msgid "t.logout"
+msgstr "Logout"
+
+msgid "t.register"
+msgstr "Register"
+
+msgid "t.login"
+msgstr "Login"
+
+msgid "t.language"
+msgstr "Language"

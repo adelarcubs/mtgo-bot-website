@@ -1,0 +1,39 @@
+msgid ""
+msgstr ""
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# Navigation - Begin
+msgid "t.home"
+msgstr ""
+
+msgid "t.our.bots"
+msgstr ""
+
+msgid "t.my.rent"
+msgstr ""
+
+msgid "t.my.collection"
+msgstr ""
+
+msgid "t.cart"
+msgstr ""
+
+msgid "t.my.account"
+msgstr ""
+
+msgid "t.logout"
+msgstr ""
+
+msgid "t.register"
+msgstr ""
+
+msgid "t.login"
+msgstr ""
+
+msgid "t.language"
+msgstr ""
+# Navigation - End
