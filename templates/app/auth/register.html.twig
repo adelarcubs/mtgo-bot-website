@@ -1,0 +1,91 @@
+{% extends "@layout/default.html.twig" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body_class %}auth-page{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">Create Account</h4>
+                </div>
+                <div class="card-body">
+                    {% if error is defined %}
+                        <div class="alert alert-danger">{{ error|e }}</div>
+                    {% endif %}
+
+                    <form method="post" action="{{ path('register') }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input 
+                                type="email" 
+                                class="form-control {% if errors.email is defined %}is-invalid{% endif %}" 
+                                id="email" 
+                                name="email" 
+                                value="{{ formData.email ?? '' }}"
+                                required
+                            >
+                            {% if errors.email is defined %}
+                                <div class="invalid-feedback">{{ errors.email|e }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input 
+                                type="text" 
+                                class="form-control {% if errors.name is defined %}is-invalid{% endif %}" 
+                                id="name" 
+                                name="name" 
+                                value="{{ formData.name ?? '' }}"
+                                required
+                            >
+                            {% if errors.name is defined %}
+                                <div class="invalid-feedback">{{ errors.name|e }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input 
+                                type="password" 
+                                class="form-control {% if errors.password is defined %}is-invalid{% endif %}" 
+                                id="password" 
+                                name="password" 
+                                required
+                            >
+                            {% if errors.password is defined %}
+                                <div class="invalid-feedback">{{ errors.password|e }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <input 
+                                type="password" 
+                                class="form-control {% if errors.confirm_password is defined %}is-invalid{% endif %}" 
+                                id="confirm_password" 
+                                name="confirm_password" 
+                                required
+                            >
+                            {% if errors.confirm_password is defined %}
+                                <div class="invalid-feedback">{{ errors.confirm_password|e }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    Already have an account? <a href="{{ path('login') }}">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

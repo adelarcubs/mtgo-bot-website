@@ -48,6 +48,9 @@ $registerPublicRoutes = function (Application $app): void {
     $app->route('/login', [
         App\Handler\Auth\LoginHandler::class,
     ], ['GET', 'POST'], 'auth.login');
+    
+    // Registration route
+    $app->route('/register', App\Handler\Auth\RegisterHandler::class, ['GET', 'POST'], 'auth.register');
 };
 
 /**
