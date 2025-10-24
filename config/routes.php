@@ -64,7 +64,7 @@ $registerApiRoutes = function (Application $app): void {
  * Register authenticated routes
  */
 $registerAuthenticatedRoutes = function (Application $app): void {
-    $app->get('/profile', App\Handler\ProfileHandler::class, 'profile');
+    $app->get('/my-account', App\Handler\MyAccountHandler::class, 'my-account');
     $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
 };
 

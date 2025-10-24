@@ -10,10 +10,10 @@ use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
 use App\Handler\Auth\RegisterHandler;
 use App\Handler\Auth\RegisterHandlerFactory;
+use App\Handler\MyAccountHandler;
+use App\Handler\MyAccountHandlerFactory;
 use App\Handler\OurBotsHandler;
 use App\Handler\OurBotsHandlerFactory;
-use App\Handler\ProfileHandler;
-use App\Handler\ProfileHandlerFactory;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\AuthenticationMiddlewareFactory;
 use App\Middleware\LocaleMiddleware;
@@ -115,7 +115,7 @@ return [
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
-            ProfileHandler::class           => ProfileHandlerFactory::class,
+            MyAccountHandler::class         => MyAccountHandlerFactory::class,
             LoginHandler::class             => LoginHandlerFactory::class,
             LogoutHandler::class            => LogoutHandlerFactory::class,
             RegisterHandler::class          => RegisterHandlerFactory::class,

@@ -65,6 +65,6 @@ class LoginHandler implements RequestHandlerInterface
             'name'  => $user->getName(),
         ]);
 
-        return new RedirectResponse('/profile');
+        return new RedirectResponse('/my-account');
     }
 }

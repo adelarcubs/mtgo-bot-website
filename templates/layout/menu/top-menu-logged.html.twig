@@ -1,20 +1,20 @@
 <li class="nav-item">
-    <a href="{#{ path('our-bots') }#}" class="nav-link">
+    <a href="{#{ path('our-bots') }#}" class="nav-link{{ path() == '/my-rent' ? ' active' : '' }}">
         {{ translate('t.my.rent') }}
     </a>
 </li>
 <li class="nav-item">
-    <a href="{#{ path('our-bots') }#}" class="nav-link">
+    <a href="{#{ path('our-bots') }#}" class="nav-link{{ path() == '/my-collection' ? ' active' : '' }}">
         {{ translate('t.my.collection') }}
     </a>
 </li>
 <li class="nav-item">
-    <a href="{#{ path('our-bots') }#}" class="nav-link">
+    <a href="{#{ path('our-bots') }#}" class="nav-link{{ path() == '/my-cart' ? ' active' : '' }}">
         {{ translate('t.cart') }}
     </a>
 </li>
 <li class="nav-item">
-    <a href="{#{ path('our-bots') }#}" class="nav-link">
+    <a href="{{ path('my-account') }}" class="nav-link{{ path() == '/my-account' ? ' active' : '' }}">
         {{ translate('t.my.account') }}
     </a>
 </li>
