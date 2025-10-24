@@ -25,6 +25,13 @@ class User
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $password;
 
+    public function __construct(string $email, string $name, string $password)
+    {
+        $this->email    = $email;
+        $this->name     = $name;
+        $this->password = $password;
+    }
+
     // Getters and Setters
     public function getId(): ?int
     {

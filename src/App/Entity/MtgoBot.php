@@ -33,6 +33,11 @@ class MtgoBot
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
