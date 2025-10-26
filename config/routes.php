@@ -58,6 +58,7 @@ $registerPublicRoutes = function (Application $app): void {
  */
 $registerApiRoutes = function (Application $app): void {
     $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
+    $app->get('/api/orders/{id:\d+}', App\Handler\GetOrderHandler::class, 'api.orders.get');
 };
 
 /**

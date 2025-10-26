@@ -10,6 +10,8 @@ use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
 use App\Handler\Auth\RegisterHandler;
 use App\Handler\Auth\RegisterHandlerFactory;
+use App\Handler\GetOrderHandler;
+use App\Handler\GetOrderHandlerFactory;
 use App\Handler\MyAccountHandler;
 use App\Handler\MyAccountHandlerFactory;
 use App\Handler\OurBotsHandler;
@@ -43,6 +45,7 @@ return [
         'aliases' => [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
             // We'll handle the translator interface in the factories
+            GetOrderHandler::class => GetOrderHandlerFactory::class,
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
