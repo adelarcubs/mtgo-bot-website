@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Factory\TranslatorFactory;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
 use App\Handler\Auth\LoginHandler;
@@ -29,7 +30,6 @@ use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
-use Laminas\I18n\Translator\Loader\Gettext;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Mezzio\Session\SessionMiddleware;
@@ -58,48 +58,7 @@ return [
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
 
             // Register the translator service
-            TranslatorInterface::class => function (ContainerInterface $container) {
-                $config     = $container->get('config');
-                $translator = new Translator();
-
-                // Set default locale from config
-                $defaultLocale = $config['i18n']['default_locale'] ?? 'pt_BR';
-                // $translator->setLocale($defaultLocale);
-                // $translator->setFallbackLocale($defaultLocale);
-
-                // Enable event manager for locale change events
-                $translator->enableEventManager();
-
-                // Add translation files if configured
-                if (isset($config['i18n']['translation_file_patterns'])) {
-                    $loader = new Gettext();
-                    $translator->getPluginManager()->setService('gettext', $loader);
-
-                    foreach ($config['i18n']['translation_file_patterns'] as $idx => $pattern) {
-                        $type       = $pattern['type'] ?? 'gettext';
-                        $baseDir    = $pattern['base_dir'] ?? '';
-                        $patternStr = $pattern['pattern'] ?? '%s/LC_MESSAGES/default.mo';
-
-                        // Ensure base directory exists
-                        if (! is_dir($baseDir)) {
-                            error_log(sprintf(
-                                'Translation base directory does not exist: %s',
-                                $baseDir
-                            ));
-                            continue;
-                        }
-
-                        $translator->addTranslationFilePattern(
-                            $type,
-                            $baseDir,
-                            $patternStr,
-                            'default'  // text domain
-                        );
-                    }
-                }
-
-                return $translator;
-            },
+            TranslatorInterface::class => TranslatorFactory::class,
 
             // Alias for backward compatibility
             Translator::class => function (ContainerInterface $container) {
