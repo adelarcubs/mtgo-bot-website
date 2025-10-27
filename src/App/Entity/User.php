@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -25,11 +26,15 @@ class User
     #[ORM\Column(type: 'string', length: 255, nullable: false)]
     private string $password;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $createdAt;
+
     public function __construct(string $email, string $name, string $password)
     {
-        $this->email    = $email;
-        $this->name     = $name;
-        $this->password = $password;
+        $this->email     = $email;
+        $this->name      = $name;
+        $this->password  = $password;
+        $this->createdAt = new DateTimeImmutable();
     }
 
     // Getters and Setters
@@ -69,5 +74,10 @@ class User
     {
         $this->password = $password;
         return $this;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }
