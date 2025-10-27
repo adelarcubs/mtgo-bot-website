@@ -9,3 +9,4 @@ Tempalte render is TWIG
 Don't change files in vendor directory
 Before any commit run ```composer cs-fix```
 When commit add in message that this commit is execute using vibe code
+All Entity classes must use attributes to define properties for Doctrine ORM
