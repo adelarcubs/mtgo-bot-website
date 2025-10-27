@@ -21,7 +21,7 @@ class TranslatorFactory
         $translator = new Translator();
 
         // Set default locale from config
-        $defaultLocale = $config['i18n']['default_locale'] ?? 'pt_BR';
+        $defaultLocale = $config['i18n']['default_locale'];
         $translator->setLocale($defaultLocale);
         $translator->setFallbackLocale($defaultLocale);
 
@@ -30,30 +30,29 @@ class TranslatorFactory
 
         // Add translation files if configured
         if (isset($config['i18n']['translation_file_patterns'])) {
+            $pattern = $config['i18n']['translation_file_patterns'];
+
             $loader = new Gettext();
             $translator->getPluginManager()->setService('gettext', $loader);
 
-            foreach ($config['i18n']['translation_file_patterns'] as $pattern) {
-                $type       = $pattern['type'] ?? 'gettext';
-                $baseDir    = $pattern['base_dir'] ?? '';
-                $patternStr = $pattern['pattern'] ?? '%s/LC_MESSAGES/default.mo';
+            $type       = $pattern['type'];
+            $baseDir    = $pattern['base_dir'];
+            $patternStr = $pattern['pattern'];
 
-                // Ensure base directory exists
-                if (! is_dir($baseDir)) {
-                    error_log(sprintf(
-                        'Translation base directory does not exist: %s',
-                        $baseDir
-                    ));
-                    continue;
-                }
-
-                $translator->addTranslationFilePattern(
-                    $type,
-                    $baseDir,
-                    $patternStr,
-                    'default'  // text domain
-                );
+            // Ensure base directory exists
+            if (! is_dir($baseDir)) {
+                error_log(sprintf(
+                    'Translation base directory does not exist: %s',
+                    $baseDir
+                ));
             }
+
+            $translator->addTranslationFilePattern(
+                $type,
+                $baseDir,
+                $patternStr,
+                'default'  // text domain
+            );
         }
 
         return $translator;

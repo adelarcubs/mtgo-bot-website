@@ -55,7 +55,6 @@ class TemplateDataMiddleware implements MiddlewareInterface
         if (strpos($routeName, 'localized.') === 0) {
             $routeName = substr($routeName, 9); // Remove 'localized.' prefix
         }
-
         // Set the translator locale if it's different
         if ($this->translator->getLocale() !== $locale) {
             $this->translator->setLocale($locale);

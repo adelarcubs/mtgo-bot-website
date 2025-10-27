@@ -13,8 +13,8 @@ class OrderRepositoryFactory
     public function __invoke(ContainerInterface $container): OrderRepository
     {
         $entityManager = $container->get(EntityManagerInterface::class);
-        $metadata = $entityManager->getClassMetadata(Order::class);
-        
+        $metadata      = $entityManager->getClassMetadata(Order::class);
+
         return new OrderRepository($entityManager, $metadata);
     }
 }

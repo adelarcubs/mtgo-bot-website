@@ -64,10 +64,14 @@ return [
             TranslatorInterface::class => TranslatorFactory::class,
 
             // Alias for backward compatibility
-            Translator::class => TranslatorFactory::class,
+            Translator::class => function (ContainerInterface $container) {
+                return $container->get(TranslatorInterface::class);
+            },
 
             // Alias for template usage
-            'translator' => TranslatorFactory::class,
+            'translator' => function (ContainerInterface $container) {
+                return $container->get(TranslatorInterface::class);
+            },
 
             // Register Twig extension for translations
             TranslationExtension::class => TranslationExtensionFactory::class,

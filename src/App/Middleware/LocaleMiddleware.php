@@ -30,8 +30,8 @@ class LocaleMiddleware implements MiddlewareInterface
 
         // Get the config from the container
         $config           = $this->container->get('config');
-        $supportedLocales = $config['i18n']['supported_locales'] ?? [];
-        $defaultLocale    = $config['i18n']['default_locale'] ?? 'en_US';
+        $supportedLocales = $config['i18n']['supported_locales'];
+        $defaultLocale    = $config['i18n']['default_locale'];
 
         // Try to get locale from URL parameters first
         $locale = $queryParams['locale'] ?? null;

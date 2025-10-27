@@ -6,8 +6,8 @@ namespace App\Repository;
 
 use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * @method Order|null find($id, $lockMode = null, $lockVersion = null)
