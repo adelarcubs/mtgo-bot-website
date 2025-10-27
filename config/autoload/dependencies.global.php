@@ -26,10 +26,13 @@ use App\Middleware\TemplateDataMiddleware;
 use App\Middleware\TemplateDataMiddlewareFactory;
 use App\Repository\MtgoBotRepository;
 use App\Repository\MtgoBotRepositoryFactory;
+use App\Repository\OrderRepository;
+use App\Repository\OrderRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
+use Doctrine\ORM\EntityManagerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Mezzio\Session\SessionMiddleware;
@@ -45,7 +48,7 @@ return [
         'aliases' => [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
             // We'll handle the translator interface in the factories
-            GetOrderHandler::class => GetOrderHandlerFactory::class,
+            EntityManagerInterface::class => 'doctrine.entity_manager.orm_default',
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
@@ -61,19 +64,16 @@ return [
             TranslatorInterface::class => TranslatorFactory::class,
 
             // Alias for backward compatibility
-            Translator::class => function (ContainerInterface $container) {
-                return $container->get(TranslatorInterface::class);
-            },
+            Translator::class => TranslatorFactory::class,
 
             // Alias for template usage
-            'translator' => function (ContainerInterface $container) {
-                return $container->get(TranslatorInterface::class);
-            },
+            'translator' => TranslatorFactory::class,
 
             // Register Twig extension for translations
             TranslationExtension::class => TranslationExtensionFactory::class,
 
             // Handlers
+            GetOrderHandler::class          => GetOrderHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
@@ -85,6 +85,7 @@ return [
             // Repositories
             UserRepository::class    => UserRepositoryFactory::class,
             MtgoBotRepository::class => MtgoBotRepositoryFactory::class,
+            OrderRepository::class   => OrderRepositoryFactory::class,
 
             // Middleware
             SessionMiddleware::class      => SessionMiddlewareFactory::class,

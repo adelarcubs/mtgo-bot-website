@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Order;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * @method Order|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,26 +15,29 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Order[]    findAll()
  * @method Order[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrderRepository extends ServiceEntityRepository
+class OrderRepository extends EntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $em, ?ClassMetadata $class = null)
     {
-        parent::__construct($registry, Order::class);
+        parent::__construct($em, $class ?? $em->getClassMetadata(Order::class));
+        $this->entityManager = $em;
     }
 
     public function save(Order $entity, bool $flush = true): void
     {
-        $this->_em->persist($entity);
+        $this->entityManager->persist($entity);
         if ($flush) {
-            $this->_em->flush();
+            $this->entityManager->flush();
         }
     }
 
     public function remove(Order $entity, bool $flush = true): void
     {
-        $this->_em->remove($entity);
+        $this->entityManager->remove($entity);
         if ($flush) {
-            $this->_em->flush();
+            $this->entityManager->flush();
         }
     }
 
