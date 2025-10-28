@@ -47,6 +47,10 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // - $app->pipe('/docs', $apiDocMiddleware);
     // - $app->pipe('/files', $filesMiddleware);
 
+    // Register the routing middleware in the middleware pipeline.
+    // This middleware registers the Mezzio\Router\RouteResult request attribute.
+    $app->pipe(RouteMiddleware::class);
+
     // Add session middleware for web requests
     $app->pipe(SessionMiddleware::class);
 
@@ -57,10 +61,6 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(AuthenticationMiddleware::class);
 
     $app->pipe(TemplateDataMiddleware::class);
-
-    // Register the routing middleware in the middleware pipeline.
-    // This middleware registers the Mezzio\Router\RouteResult request attribute.
-    $app->pipe(RouteMiddleware::class);
 
     // The following handle routing failures for common conditions:
     // - HEAD request but no routes answer that method

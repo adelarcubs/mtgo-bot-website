@@ -1,10 +1,10 @@
 <li class="nav-item">
-    <a href="{{ path('auth.register') }}" class="nav-link{{ path() == '/register' ? ' active' : '' }}">
+    <a href="{{ path('auth.register') }}" class="nav-link{{ current_route == 'register' ? ' active' : '' }}">
         {{ translate('t.register') }}
     </a>
 </li>
 <li class="nav-item">
-    <a href="{{ path('auth.login') }}" class="nav-link{{ path() == '/login' ? ' active' : '' }}">
+    <a href="{{ path('auth.login') }}" class="nav-link{{ current_route == 'login' ? ' active' : '' }}">
         {{ translate('t.login') }}
     </a>
 </li>

@@ -52,9 +52,9 @@ class TemplateDataMiddleware implements MiddlewareInterface
         $supportedLocales = $config['i18n']['supported_locales'] ?? [];
 
         // If this is a localized route, get the base route name
-        if (strpos($routeName, 'localized.') === 0) {
-            $routeName = substr($routeName, 9); // Remove 'localized.' prefix
-        }
+        #if (strpos($routeName, 'localized.') === 0) {
+        #    $routeName = substr($routeName, 9); // Remove 'localized.' prefix
+        #}
         // Set the translator locale if it's different
         if ($this->translator->getLocale() !== $locale) {
             $this->translator->setLocale($locale);
@@ -65,6 +65,12 @@ class TemplateDataMiddleware implements MiddlewareInterface
             TemplateRendererInterface::TEMPLATE_ALL,
             'logged_in_user',
             $user
+        );
+        
+        $this->renderer->addDefaultParam(
+            TemplateRendererInterface::TEMPLATE_ALL,
+            'current_route',
+            $routeName
         );
         // echo $locale;
         // Add i18n related parameters
