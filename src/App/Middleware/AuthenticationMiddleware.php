@@ -133,6 +133,8 @@ class AuthenticationMiddleware implements MiddlewareInterface
             return new RedirectResponse($this->config['login_url'] ?? '/login');
         }
 
+        $request = $request->withAttribute('user_id', $user['id']);
+
         return $handler->handle($request);
     }
 

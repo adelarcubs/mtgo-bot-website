@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Handler\Cart;
 
+use App\Entity\Cart;
+use App\Entity\CartItem;
+use App\Entity\MtgoItem;
+use App\Repository\CartRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\UploadedFile;
@@ -11,8 +16,15 @@ use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use RuntimeException;
 
+use function array_map;
+use function implode;
+use function libxml_clear_errors;
+use function libxml_get_errors;
+use function libxml_use_internal_errors;
 use function pathinfo;
+use function simplexml_load_string;
 use function strtolower;
 
 use const PATHINFO_EXTENSION;
@@ -22,6 +34,8 @@ class UploadDeckHandler implements RequestHandlerInterface
 {
     public function __construct(
         private TemplateRendererInterface $template,
+        private EntityManagerInterface $entityManager,
+        private CartRepository $cartRepository,
     ) {
     }
 
@@ -43,15 +57,25 @@ class UploadDeckHandler implements RequestHandlerInterface
 
                     if (strtolower($fileExt) === 'dek') {
                         try {
-                            // Process the .dek file here
+                            // Get or create cart for the current user
+                            $userId = $request->getAttribute('user_id'); // Assuming user ID is stored in request attributes
+                            $cart   = $this->cartRepository->findOneBy(['userId' => $userId]) ?? new Cart($userId);
+
+                            // Process the .dek file and get cart items
                             $deckContents = (string) $uploadedFile->getStream();
+                            $cartItems    = $this->parseDeckFile($deckContents, $cart);
+                            $this->cartRepository->clearCartItems($cart);
 
-                            // TODO: Add your deck processing logic here
-                            // For now, we'll just set success to true
+                            // Add items to cart
+                            foreach ($cartItems as $cartItem) {
+                                $cart->addCartItem($cartItem);
+                            }
+
+                            // Save cart
+                            $this->entityManager->persist($cart);
+                            $this->entityManager->flush();
+
                             $success = true;
-
-                            // You can parse the deck contents and pass them to the template
-                            // $deckData = $this->parseDeckFile($deckContents);
                         } catch (Exception $e) {
                             $error = 'Error processing deck file: ' . $e->getMessage();
                         }
@@ -72,12 +96,48 @@ class UploadDeckHandler implements RequestHandlerInterface
         ]));
     }
 
-    // TODO: Implement deck file parsing logic
-    /*
-    private function parseDeckFile(string $contents): array
+    /**
+     * Parse the .dek XML file contents and return an array of CartItem objects
+     *
+     * @param string $contents The XML content of the .dek file
+     * @param Cart $cart The cart to associate with the items
+     * @return CartItem[] Array of CartItem objects
+     * @throws RuntimeException If the XML is invalid or missing required data
+     */
+    private function parseDeckFile(string $contents, Cart $cart): array
     {
-        // Parse the .dek file contents and return structured data
-        return [];
+        libxml_use_internal_errors(true);
+        $xml = simplexml_load_string($contents);
+
+        if ($xml === false) {
+            $errors        = libxml_get_errors();
+            $errorMessages = array_map(fn($error) => $error->message, $errors);
+            libxml_clear_errors();
+            throw new RuntimeException('Invalid XML: ' . implode(', ', $errorMessages));
+        }
+
+        $cartItems     = [];
+        $entityManager = $this->entityManager;
+
+        // Handle direct Cards elements under Deck
+        foreach ($xml->Cards as $card) {
+            $attributes = $card->attributes();
+            $quantity   = (int) $attributes->Quantity;
+            $mtgoItemId = (int) $attributes->CatID;
+
+            // Find or create MtgoItem
+            $mtgoItem = $entityManager->getRepository(MtgoItem::class)->find($mtgoItemId);
+
+            if ($mtgoItem) {
+                // Create CartItem with the provided cart
+                $cartItems[] = new CartItem(
+                    cart: $cart,
+                    mtgoItem: $mtgoItem,
+                    quantity: $quantity
+                );
+            }
+        }
+
+        return $cartItems;
     }
-    */
 }

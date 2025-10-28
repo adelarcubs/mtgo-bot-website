@@ -63,4 +63,21 @@ class CartRepository extends EntityRepository
 
         return $cart;
     }
+
+    /**
+     * Remove all items from a cart
+     *
+     * @param Cart $cart The cart to clear
+     * @param bool $flush Whether to flush the changes to the database immediately
+     */
+    public function clearCartItems(Cart $cart, bool $flush = true): void
+    {
+        foreach ($cart->getCartItems() as $cartItem) {
+            $this->entityManager->remove($cartItem);
+        }
+
+        if ($flush) {
+            $this->entityManager->flush();
+        }
+    }
 }
