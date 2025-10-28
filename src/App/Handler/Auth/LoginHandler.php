@@ -64,6 +64,7 @@ class LoginHandler implements RequestHandlerInterface
             'email' => $user->getEmail(),
             'name'  => $user->getName(),
         ]);
+        $session->set('locale', $user->getDefaultLocation());
 
         return new RedirectResponse('/my-account');
     }

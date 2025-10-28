@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
+use Mezzio\Session\SessionMiddleware;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -59,10 +60,14 @@ class RegisterHandler implements RequestHandlerInterface
         $errors = $this->validateRegistration($data);
 
         if (empty($errors)) {
+            $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
+            $locale  = $session->get('locale');
+
             $user = new User(
                 $formData['email'],
                 $formData['name'],
-                password_hash($data['password'], PASSWORD_DEFAULT)
+                password_hash($data['password'], PASSWORD_DEFAULT),
+                $locale
             );
 
             $this->userRepository->save($user, true);

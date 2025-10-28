@@ -23,9 +23,9 @@ class LogoutHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $session = $request->getAttribute(SessionMiddleware::SESSION_ATTRIBUTE);
-        
+
         $locale = $session->get('locale');
-        
+
         if ($session instanceof SessionInterface) {
             // Clear all session data
             $session->clear();

@@ -29,12 +29,16 @@ class User
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $createdAt;
 
-    public function __construct(string $email, string $name, string $password)
+    #[ORM\Column(type: 'string', length: 100, nullable: false)]
+    private string $defaultLocation;
+
+    public function __construct(string $email, string $name, string $password, string $defaultLocation)
     {
-        $this->email     = $email;
-        $this->name      = $name;
-        $this->password  = $password;
-        $this->createdAt = new DateTimeImmutable();
+        $this->email           = $email;
+        $this->name            = $name;
+        $this->password        = $password;
+        $this->defaultLocation = $defaultLocation;
+        $this->createdAt       = new DateTimeImmutable();
     }
 
     // Getters and Setters
@@ -79,5 +83,16 @@ class User
     public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function getDefaultLocation(): string
+    {
+        return $this->defaultLocation;
+    }
+
+    public function setDefaultLocation(string $defaultLocation): self
+    {
+        $this->defaultLocation = $defaultLocation;
+        return $this;
     }
 }

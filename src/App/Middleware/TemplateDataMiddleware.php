@@ -14,9 +14,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-use function strpos;
-use function substr;
-
 class TemplateDataMiddleware implements MiddlewareInterface
 {
     private TemplateRendererInterface $renderer;
@@ -52,9 +49,9 @@ class TemplateDataMiddleware implements MiddlewareInterface
         $supportedLocales = $config['i18n']['supported_locales'] ?? [];
 
         // If this is a localized route, get the base route name
-        #if (strpos($routeName, 'localized.') === 0) {
-        #    $routeName = substr($routeName, 9); // Remove 'localized.' prefix
-        #}
+        // if (strpos($routeName, 'localized.') === 0) {
+        // $routeName = substr($routeName, 9); // Remove 'localized.' prefix
+        // }
         // Set the translator locale if it's different
         if ($this->translator->getLocale() !== $locale) {
             $this->translator->setLocale($locale);
@@ -66,7 +63,7 @@ class TemplateDataMiddleware implements MiddlewareInterface
             'logged_in_user',
             $user
         );
-        
+
         $this->renderer->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
             'current_route',
