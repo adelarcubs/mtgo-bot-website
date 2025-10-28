@@ -23,7 +23,8 @@ class TranslatorFactory
         // Set default locale from config
         $defaultLocale = $config['i18n']['default_locale'];
         $translator->setLocale($defaultLocale);
-        $translator->setFallbackLocale($defaultLocale);
+        // TODO: Don't need fallback locale I guess
+        // $translator->setFallbackLocale($defaultLocale);
 
         // Enable event manager for locale change events
         $translator->enableEventManager();
