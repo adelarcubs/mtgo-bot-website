@@ -8,15 +8,15 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h2>My Account</h2>
+                    <h2>{{ translate('t.my.account') }}</h2>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <h4>Welcome, {{ user.identity }}</h4>
+                        <h4>{{ translate('t.welcome') }}, {{ user.identity }}</h4>
                     </div>
                     
                     <div class="mb-3">
-                        <h5>Account Information</h5>
+                        <h5>{{ translate('t.account.information') }}</h5>
                         <ul class="list-group">
                             <li class="list-group-item">
                                 <strong>Username:</strong> {{ user.identity }}
@@ -34,7 +34,7 @@
                     
                     <div class="mt-4">
                         <a href="/logout" class="btn btn-danger">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                            <i class="fas fa-sign-out-alt"></i> {{ translate('t.logout') }}
                         </a>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="mb-0">Create Account</h4>
+                    <h4 class="mb-0">{{ translate('t.create.account') }}</h4>
                 </div>
                 <div class="card-body">
                     {% if error is defined %}
@@ -17,7 +17,7 @@
 
                     <form method="post" action="{{ path('auth.register') }}">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
+                            <label for="email" class="form-label">{{ translate('t.email') }}</label>
                             <input 
                                 type="email" 
                                 class="form-control {% if errors.email is defined %}is-invalid{% endif %}" 
@@ -32,7 +32,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">{{ translate('t.name') }}</label>
                             <input 
                                 type="text" 
                                 class="form-control {% if errors.name is defined %}is-invalid{% endif %}" 
@@ -47,7 +47,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">{{ translate('t.password') }}</label>
                             <input 
                                 type="password" 
                                 class="form-control {% if errors.password is defined %}is-invalid{% endif %}" 
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                            <label for="confirm_password" class="form-label">{{ translate('t.confirm.password') }}</label>
                             <input 
                                 type="password" 
                                 class="form-control {% if errors.confirm_password is defined %}is-invalid{% endif %}" 
@@ -75,12 +75,12 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <button type="submit" class="btn btn-primary">{{ translate('t.register') }}</button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Already have an account? <a href="{{ path('auth.login') }}">Sign in</a>
+                    {{ translate('t.already.have.account') }} <a href="{{ path('auth.login') }}">{{ translate('t.login') }}</a>
                 </div>
             </div>
         </div>
