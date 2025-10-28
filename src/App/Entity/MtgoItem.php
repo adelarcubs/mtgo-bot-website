@@ -24,10 +24,18 @@ class MtgoItem
     #[ORM\JoinColumn(name: 'card_set_id', referencedColumnName: 'id', nullable: false)]
     private CardSet $cardSet;
 
-    public function __construct(string $name, CardSet $cardSet)
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: false)]
+    private float $price = 0.0;
+
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
+    private ?string $collectorNumber = null;
+
+    public function __construct(string $name, CardSet $cardSet, float $price = 0.0, ?string $collectorNumber = null)
     {
-        $this->name    = $name;
-        $this->cardSet = $cardSet;
+        $this->name            = $name;
+        $this->cardSet         = $cardSet;
+        $this->price           = $price;
+        $this->collectorNumber = $collectorNumber;
     }
 
     public function getId(): ?int
@@ -54,6 +62,33 @@ class MtgoItem
     public function setCardSet(CardSet $cardSet): self
     {
         $this->cardSet = $cardSet;
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function getSetCode(): string
+    {
+        return $this->cardSet->getCode();
+    }
+
+    public function getCollectorNumber(): ?string
+    {
+        return $this->collectorNumber;
+    }
+
+    public function setCollectorNumber(?string $collectorNumber): self
+    {
+        $this->collectorNumber = $collectorNumber;
         return $this;
     }
 }

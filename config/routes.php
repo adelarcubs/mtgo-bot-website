@@ -72,6 +72,8 @@ $registerApiRoutes = function (Application $app): void {
 $registerAuthenticatedRoutes = function (Application $app): void {
     $app->get('/my-account', App\Handler\MyAccountHandler::class, 'my-account');
     $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
+
+    $app->get('/cart', [App\Handler\Cart\GetCartHandler::class], 'cart');
 };
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes): void {

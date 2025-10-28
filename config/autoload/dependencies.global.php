@@ -11,6 +11,8 @@ use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
 use App\Handler\Auth\RegisterHandler;
 use App\Handler\Auth\RegisterHandlerFactory;
+use App\Handler\Cart\GetCartHandler;
+use App\Handler\Cart\GetCartHandlerFactory;
 use App\Handler\Cart\UploadDeckHandler;
 use App\Handler\Cart\UploadDeckHandlerFactory;
 use App\Handler\GetOrderHandler;
@@ -26,6 +28,8 @@ use App\Middleware\LocaleMiddlewareFactory;
 use App\Middleware\SessionMiddlewareFactory;
 use App\Middleware\TemplateDataMiddleware;
 use App\Middleware\TemplateDataMiddlewareFactory;
+use App\Repository\CartRepository;
+use App\Repository\CartRepositoryFactory;
 use App\Repository\MtgoBotRepository;
 use App\Repository\MtgoBotRepositoryFactory;
 use App\Repository\OrderRepository;
@@ -82,6 +86,7 @@ return [
             GetOrderHandler::class          => GetOrderHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
+            GetCartHandler::class           => GetCartHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
@@ -94,6 +99,7 @@ return [
             UserRepository::class    => UserRepositoryFactory::class,
             MtgoBotRepository::class => MtgoBotRepositoryFactory::class,
             OrderRepository::class   => OrderRepositoryFactory::class,
+            CartRepository::class    => CartRepositoryFactory::class,
 
             // Middleware
             SessionMiddleware::class      => SessionMiddlewareFactory::class,
