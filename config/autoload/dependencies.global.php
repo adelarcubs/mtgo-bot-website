@@ -11,6 +11,8 @@ use App\Handler\Auth\LogoutHandler;
 use App\Handler\Auth\LogoutHandlerFactory;
 use App\Handler\Auth\RegisterHandler;
 use App\Handler\Auth\RegisterHandlerFactory;
+use App\Handler\Cart\UploadDeckHandler;
+use App\Handler\Cart\UploadDeckHandlerFactory;
 use App\Handler\GetOrderHandler;
 use App\Handler\GetOrderHandlerFactory;
 use App\Handler\MyAccountHandler;
@@ -78,6 +80,8 @@ return [
 
             // Handlers
             GetOrderHandler::class          => GetOrderHandlerFactory::class,
+            OurBotsHandler::class           => OurBotsHandlerFactory::class,
+            UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,

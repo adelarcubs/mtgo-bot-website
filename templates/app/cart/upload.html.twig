@@ -1,0 +1,48 @@
+{% extends "@layout/default.html.twig" %}
+
+{% block title %}Upload Deck File{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Upload MTGO Deck File (.dek)</h2>
+                </div>
+                <div class="card-body">
+                    {% if error %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+                    
+                    {% if success %}
+                        <div class="alert alert-success">
+                            Deck file uploaded successfully!
+                            <!-- TODO: Add deck preview or processing results here -->
+                        </div>
+                    {% endif %}
+                    
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="deckFile" class="form-label">Select .dek file</label>
+                            <input class="form-control" type="file" id="deckFile" name="deckFile" accept=".dek" required>
+                            <div class="form-text">Select your Magic: The Gathering Online (.dek) deck file.</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload and Process</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h4>How to export your deck from MTGO:</h4>
+                <ol>
+                    <li>Open your deck in MTGO</li>
+                    <li>Click on "Deck" in the top menu</li>
+                    <li>Select "Export Deck to File"</li>
+                    <li>Save the .dek file and upload it above</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

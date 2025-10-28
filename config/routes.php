@@ -49,6 +49,11 @@ $registerPublicRoutes = function (Application $app): void {
         App\Handler\Auth\LoginHandler::class,
     ], ['GET', 'POST'], 'auth.login');
     
+    // Cart routes
+    $app->route('/cart/upload', [
+        App\Handler\Cart\UploadDeckHandler::class,
+    ], ['GET', 'POST'], 'cart.upload');
+    
     // Registration route
     $app->route('/register', App\Handler\Auth\RegisterHandler::class, ['GET', 'POST'], 'auth.register');
 };
