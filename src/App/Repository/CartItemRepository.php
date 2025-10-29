@@ -6,33 +6,71 @@ namespace App\Repository;
 
 use App\Entity\CartItem;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\ClassMetadata;
 
-/** @template-extends EntityRepository<CartItem> */
-class CartItemRepository extends EntityRepository
+class CartItemRepository
 {
-    public function __construct(EntityManagerInterface $em)
-    {
-        parent::__construct($em, new ClassMetadata(CartItem::class));
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager
+    ) {
     }
 
     /** @return CartItem[] */
     public function findBy(
         array $criteria,
         ?array $orderBy = null,
-        $limit = null,
-        $offset = null
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
+        $queryBuilder = $this->entityManager->createQueryBuilder()
+            ->select('ci')
+            ->from(CartItem::class, 'ci');
+
+        foreach ($criteria as $field => $value) {
+            $queryBuilder->andWhere("ci.$field = :$field")
+                ->setParameter($field, $value);
+        }
+
+        if ($orderBy !== null) {
+            foreach ($orderBy as $field => $order) {
+                $queryBuilder->addOrderBy("ci.$field", $order);
+            }
+        }
+
+        if ($limit !== null) {
+            $queryBuilder->setMaxResults($limit);
+        }
+
+        if ($offset !== null) {
+            $queryBuilder->setFirstResult($offset);
+        }
+
         /** @var CartItem[] $result */
-        $result = parent::findBy($criteria, $orderBy, $limit, $offset);
+        $result = $queryBuilder->getQuery()->getResult();
+
         return $result;
     }
 
     public function findOneBy(array $criteria, ?array $orderBy = null): ?CartItem
     {
+        $queryBuilder = $this->entityManager->createQueryBuilder()
+            ->select('ci')
+            ->from(CartItem::class, 'ci')
+            ->setMaxResults(1);
+
+        foreach ($criteria as $field => $value) {
+            $queryBuilder->andWhere("ci.$field = :$field")
+                ->setParameter($field, $value);
+        }
+
+        if ($orderBy !== null) {
+            foreach ($orderBy as $field => $order) {
+                $queryBuilder->addOrderBy("ci.$field", $order);
+            }
+        }
+
         /** @var CartItem|null $result */
-        $result = parent::findOneBy($criteria, $orderBy);
+        $result = $queryBuilder->getQuery()->getOneOrNullResult();
+
         return $result;
     }
 }
