@@ -6,24 +6,15 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h2>Upload New Collection</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="dekFile" class="form-label">.dek File</label>
-                            <input class="form-control" type="file" id="dekFile" name="dek_file" accept=".dek" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Upload</button>
-                    </form>
-                </div>
-            </div>
-
             <div class="card">
                 <div class="card-header">
-                    <h2>My Collection Items</h2>
+                    <h2>My Collection</h2>
+                    <form method="post" action="{{ path('my-collection.upload') }}" enctype="multipart/form-data" class="d-inline">
+                        <label for="dekFile" class="btn btn-primary mb-0" style="cursor: pointer;">
+                            <i class="fas fa-upload me-2"></i>Upload Collection
+                            <input type="file" id="dekFile" name="dek_file" accept=".dek" required style="display: none;" onchange="this.form.submit()">
+                        </label>
+                    </form>
                 </div>
                 <div class="card-body">
                     {% if collectionItems|length > 0 %}

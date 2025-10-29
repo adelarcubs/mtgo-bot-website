@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Factory\DekFileReaderFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
@@ -20,8 +19,10 @@ use App\Handler\GetOrderHandler;
 use App\Handler\GetOrderHandlerFactory;
 use App\Handler\MyAccountHandler;
 use App\Handler\MyAccountHandlerFactory;
-use App\Handler\MyCollectionHandler;
-use App\Handler\MyCollectionHandlerFactory;
+use App\Handler\MyCollection\MyCollectionHandler;
+use App\Handler\MyCollection\MyCollectionHandlerFactory;
+use App\Handler\MyCollection\UploadCollectionHandler;
+use App\Handler\MyCollection\UploadCollectionHandlerFactory;
 use App\Handler\MyRentHandler;
 use App\Handler\MyRentHandlerFactory;
 use App\Handler\OurBotsHandler;
@@ -37,6 +38,8 @@ use App\Repository\CartRepository;
 use App\Repository\CartRepositoryFactory;
 use App\Repository\MtgoBotRepository;
 use App\Repository\MtgoBotRepositoryFactory;
+use App\Repository\MtgoItemRepository;
+use App\Repository\MtgoItemRepositoryFactory;
 use App\Repository\OrderRepository;
 use App\Repository\OrderRepositoryFactory;
 use App\Repository\RentedCardRepository;
@@ -74,7 +77,7 @@ return [
         // class name.
         'invokables' => [
             Handler\PingHandler::class => Handler\PingHandler::class,
-            DekFileReader::class       => DekFileReaderFactory::class,
+            DekFileReader::class       => DekFileReader::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
@@ -108,6 +111,7 @@ return [
             GetCartHandler::class           => GetCartHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             MyCollectionHandler::class      => MyCollectionHandlerFactory::class,
+            UploadCollectionHandler::class  => UploadCollectionHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
             MyAccountHandler::class         => MyAccountHandlerFactory::class,
@@ -118,6 +122,7 @@ return [
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,
             MtgoBotRepository::class            => MtgoBotRepositoryFactory::class,
+            MtgoItemRepository::class           => MtgoItemRepositoryFactory::class,
             OrderRepository::class              => OrderRepositoryFactory::class,
             CartRepository::class               => CartRepositoryFactory::class,
             RentedCardRepository::class         => RentedCardRepositoryFactory::class,

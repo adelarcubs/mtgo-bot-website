@@ -5,6 +5,13 @@
 {% block content %}
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-6">My Shopping Cart</h1>
+
+        <form method="post" enctype="multipart/form-data" action="{{ path('cart.upload') }}">
+            <div class="mb-3">
+                <label for="deckFile" class="form-label" role="button">Upload .dek file</label>
+                <input class="form-control" type="file" id="deckFile" name="deckFile" accept=".dek" required onchange="this.form.submit()" hidden>
+            </div>
+        </form>
         
         {% if cart.items is empty %}
             <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6" role="alert">

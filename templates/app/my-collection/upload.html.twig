@@ -1,0 +1,38 @@
+{% extends "@layout/default.html.twig" %}
+
+{% block title %}Upload Collection{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Upload Collection</h2>
+                </div>
+                <div class="card-body">
+                    {% if error is defined %}
+                        <div class="alert alert-danger">{{ error }}</div>
+                    {% endif %}
+                    
+                    <form method="post" enctype="multipart/form-data" action="{{ path('my-collection.upload') }}">
+                        <div class="mb-3">
+                            <label for="dekFile" class="form-label">Select .dek file to upload</label>
+                            <input class="form-control" type="file" id="dekFile" name="dek_file" accept=".dek" required>
+                            <div class="form-text">Select a .dek file exported from MTGO.</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('my-collection') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Collection
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload me-2"></i>Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

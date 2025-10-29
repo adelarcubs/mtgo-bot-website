@@ -73,10 +73,9 @@ $registerAuthenticatedRoutes = function (Application $app): void {
     $app->get('/my-account', App\Handler\MyAccountHandler::class, 'my-account');
     $app->get('/my-rent', App\Handler\MyRentHandler::class, 'my-rent');
     
-    // Cart routes
-    $app->route('/my-collection', [
-        App\Handler\MyCollectionHandler::class,
-    ], ['GET', 'POST'], 'my-collection');
+    // Collection routes
+    $app->get('/my-collection', App\Handler\MyCollection\MyCollectionHandler::class, 'my-collection');
+    $app->post('/my-collection/upload',            App\Handler\MyCollection\UploadCollectionHandler::class, 'my-collection.upload');
 
     $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
 
