@@ -1,0 +1,24 @@
+{% extends "@layout/default.html.twig" %}
+
+{% block title %}My Rented Cards{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>My Rented Cards</h1>
+    
+    <div class="mt-4">
+        {% if rentedCards is not empty %}
+            <ul class="list-group">
+                {% for card in rentedCards %}
+                <li class="list-group-item">
+                    {{ card.quantity }}x {{ card.mtgoItem.name }}
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="alert alert-info">You don't have any rented cards at the moment.</div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

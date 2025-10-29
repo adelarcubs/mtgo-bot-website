@@ -19,6 +19,8 @@ use App\Handler\GetOrderHandler;
 use App\Handler\GetOrderHandlerFactory;
 use App\Handler\MyAccountHandler;
 use App\Handler\MyAccountHandlerFactory;
+use App\Handler\MyRentHandler;
+use App\Handler\MyRentHandlerFactory;
 use App\Handler\OurBotsHandler;
 use App\Handler\OurBotsHandlerFactory;
 use App\Middleware\AuthenticationMiddleware;
@@ -34,6 +36,8 @@ use App\Repository\MtgoBotRepository;
 use App\Repository\MtgoBotRepositoryFactory;
 use App\Repository\OrderRepository;
 use App\Repository\OrderRepositoryFactory;
+use App\Repository\RentedCardRepository;
+use App\Repository\RentedCardRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use App\Twig\TranslationExtension;
@@ -64,6 +68,11 @@ return [
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
+        // Repositories
+            RentedCardRepository::class => RentedCardRepositoryFactory::class,
+
+        // Handlers
+            MyRentHandler::class => MyRentHandlerFactory::class,
             // Fully\Qualified\ClassName::class => Fully\Qualified\FactoryName::class,
 
             // Register the translator service

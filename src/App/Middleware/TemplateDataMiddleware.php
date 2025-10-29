@@ -69,7 +69,7 @@ class TemplateDataMiddleware implements MiddlewareInterface
             'current_route',
             $routeName
         );
-        // echo $locale;
+
         // Add i18n related parameters
         $this->renderer->addDefaultParam(
             TemplateRendererInterface::TEMPLATE_ALL,
