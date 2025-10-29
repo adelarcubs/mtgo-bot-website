@@ -19,6 +19,8 @@ use App\Handler\GetOrderHandler;
 use App\Handler\GetOrderHandlerFactory;
 use App\Handler\MyAccountHandler;
 use App\Handler\MyAccountHandlerFactory;
+use App\Handler\MyCollectionHandler;
+use App\Handler\MyCollectionHandlerFactory;
 use App\Handler\MyRentHandler;
 use App\Handler\MyRentHandlerFactory;
 use App\Handler\OurBotsHandler;
@@ -38,6 +40,8 @@ use App\Repository\OrderRepository;
 use App\Repository\OrderRepositoryFactory;
 use App\Repository\RentedCardRepository;
 use App\Repository\RentedCardRepositoryFactory;
+use App\Repository\UserCollectionItemRepository;
+use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use App\Twig\TranslationExtension;
@@ -49,6 +53,9 @@ use Mezzio\Session\SessionMiddleware;
 use Psr\Container\ContainerInterface;
 
 return [
+    // Application configuration
+    'upload_path' => 'data/uploads',
+
     // Provides application-wide services.
     // We recommend using fully-qualified class names whenever possible as
     // service names.
@@ -97,6 +104,7 @@ return [
             UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
             GetCartHandler::class           => GetCartHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
+            MyCollectionHandler::class      => MyCollectionHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
             MyAccountHandler::class         => MyAccountHandlerFactory::class,
@@ -105,10 +113,12 @@ return [
             RegisterHandler::class          => RegisterHandlerFactory::class,
 
             // Repositories
-            UserRepository::class    => UserRepositoryFactory::class,
-            MtgoBotRepository::class => MtgoBotRepositoryFactory::class,
-            OrderRepository::class   => OrderRepositoryFactory::class,
-            CartRepository::class    => CartRepositoryFactory::class,
+            UserRepository::class               => UserRepositoryFactory::class,
+            MtgoBotRepository::class            => MtgoBotRepositoryFactory::class,
+            OrderRepository::class              => OrderRepositoryFactory::class,
+            CartRepository::class               => CartRepositoryFactory::class,
+            RentedCardRepository::class         => RentedCardRepositoryFactory::class,
+            UserCollectionItemRepository::class => UserCollectionItemRepositoryFactory::class,
 
             // Middleware
             SessionMiddleware::class      => SessionMiddlewareFactory::class,

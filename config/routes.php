@@ -72,6 +72,12 @@ $registerApiRoutes = function (Application $app): void {
 $registerAuthenticatedRoutes = function (Application $app): void {
     $app->get('/my-account', App\Handler\MyAccountHandler::class, 'my-account');
     $app->get('/my-rent', App\Handler\MyRentHandler::class, 'my-rent');
+    
+    // Cart routes
+    $app->route('/my-collection', [
+        App\Handler\MyCollectionHandler::class,
+    ], ['GET', 'POST'], 'my-collection');
+
     $app->get('/logout', App\Handler\Auth\LogoutHandler::class, 'logout');
 
     $app->get('/cart', [App\Handler\Cart\GetCartHandler::class], 'cart');
