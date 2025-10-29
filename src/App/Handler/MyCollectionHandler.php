@@ -57,10 +57,9 @@ class MyCollectionHandler implements RequestHandlerInterface
 
         if ($request->getMethod() === 'POST') {
             $uploadedFile = $request->getUploadedFiles()['dek_file'] ?? null;
-            $name         = $request->getParsedBody()['name'] ?? '';
 
-            if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK && $name) {
-                $this->handleFileUpload($uploadedFile, $name, $user);
+            if ($uploadedFile && $uploadedFile->getError() === UPLOAD_ERR_OK) {
+                $this->handleFileUpload($uploadedFile, $user);
             }
 
             return new RedirectResponse('/my-collection');
@@ -73,7 +72,7 @@ class MyCollectionHandler implements RequestHandlerInterface
         ]));
     }
 
-    private function handleFileUpload(UploadedFile $uploadedFile, string $name, User $user): void
+    private function handleFileUpload(UploadedFile $uploadedFile, User $user): void
     {
         // TODO: Parse the .dek file to get card information
         // For now, we'll just create a sample item with a hardcoded MtgoItem
