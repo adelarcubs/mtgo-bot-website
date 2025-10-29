@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Mezzio\Session\SessionMiddleware;
@@ -16,11 +18,16 @@ class MyAccountHandler implements RequestHandlerInterface
 {
     private TemplateRendererInterface $renderer;
     private string $loginUrl;
+    private UserRepository $userRepository;
 
-    public function __construct(TemplateRendererInterface $renderer, string $loginUrl = '/login')
-    {
-        $this->renderer = $renderer;
-        $this->loginUrl = $loginUrl;
+    public function __construct(
+        TemplateRendererInterface $renderer,
+        UserRepository $userRepository,
+        string $loginUrl = '/login'
+    ) {
+        $this->renderer       = $renderer;
+        $this->userRepository = $userRepository;
+        $this->loginUrl       = $loginUrl;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
@@ -33,13 +40,24 @@ class MyAccountHandler implements RequestHandlerInterface
             return new RedirectResponse($this->loginUrl);
         }
 
-        // Get user data from the session
+        // Get user from repository using id from session
+        $userEntity = $this->userRepository->find($user['id']);
+
+        if (! $userEntity instanceof User) {
+            // If user not found in database, clear session and redirect to login
+            $session->clear();
+            return new RedirectResponse($this->loginUrl);
+        }
+
+        // Prepare user data from the User entity
         $userData = [
-            'identity' => $user['id'],
-            'roles'    => $user['roles'] ?? [],
+            'identity' => $userEntity->getId(),
+            'roles'    => $user['roles'] ?? [], // Still using roles from session if needed
             'details'  => [
-                'email' => $user['email'],
-                'name'  => $user['name'] ?? '',
+                'email'           => $userEntity->getEmail(),
+                'name'            => $userEntity->getName(),
+                'defaultLocation' => $userEntity->getDefaultLocation(),
+                'memberSince'     => $userEntity->getCreatedAt()->format('M d, Y'),
             ],
         ];
 
