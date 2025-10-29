@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Factory\DekFileReaderFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
@@ -44,6 +45,7 @@ use App\Repository\UserCollectionItemRepository;
 use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
+use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
 use Doctrine\ORM\EntityManagerInterface;
@@ -71,7 +73,8 @@ return [
         // not require arguments to the constructor. Map a service name to the
         // class name.
         'invokables' => [
-            // Fully\Qualified\InterfaceName::class => Fully\Qualified\ClassName::class,
+            Handler\PingHandler::class => Handler\PingHandler::class,
+            DekFileReader::class       => DekFileReaderFactory::class,
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
