@@ -27,34 +27,32 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h2>My Collections</h2>
+                    <h2>My Collection Items</h2>
                 </div>
                 <div class="card-body">
-                    {% if collections|length > 0 %}
+                    {% if collectionItems|length > 0 %}
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <th>MTGO Item ID</th>
+                                        <th>Quantity</th>
+                                        <th>Added At</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for collection in collections %}
+                                    {% for item in collectionItems %}
                                         <tr>
-                                            <td>{{ collection.name }}</td>
-                                            <td>{{ collection.createdAt|date('Y-m-d H:i') }}</td>
-                                            <td>
-                                                <a href="{{ path('collection_view', {id: collection.id}) }}" class="btn btn-sm btn-info">View</a>
-                                            </td>
+                                            <td>{{ item.mtgoItemId }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>{{ item.createdAt|date('Y-m-d H:i') }}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     {% else %}
-                        <p>No collections found. Upload your first .dek file above.</p>
+                        <p>No collection items found. Upload your first .dek file above.</p>
                     {% endif %}
                 </div>
             </div>

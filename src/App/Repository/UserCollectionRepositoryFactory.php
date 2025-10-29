@@ -14,7 +14,7 @@ class UserCollectionRepositoryFactory
     public function __invoke(ContainerInterface $container): UserCollectionRepository
     {
         $entityManager = $container->get(EntityManagerInterface::class);
-        $class = new ClassMetadata(UserCollection::class);
+        $class         = new ClassMetadata(UserCollection::class);
         return new UserCollectionRepository($entityManager, $class);
     }
 }

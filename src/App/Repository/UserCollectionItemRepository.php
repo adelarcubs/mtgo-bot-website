@@ -5,41 +5,41 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\User;
-use App\Entity\UserCollection;
+use App\Entity\UserCollectionItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
- * @method UserCollection|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserCollection|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserCollection[]    findAll()
- * @method UserCollection[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserCollectionItem|null find($id, $lockMode = null, $lockVersion = null)
+ * @method UserCollectionItem|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserCollectionItem[]    findAll()
+ * @method UserCollectionItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserCollectionRepository extends EntityRepository
+class UserCollectionItemRepository extends EntityRepository
 {
     private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $em, ?ClassMetadata $class = null)
     {
-        parent::__construct($em, $class ?? $em->getClassMetadata(UserCollection::class));
+        parent::__construct($em, $class ?? $em->getClassMetadata(UserCollectionItem::class));
         $this->entityManager = $em;
     }
 
     /**
-     * @return UserCollection[]
+     * @return UserCollectionItem[]
      */
     public function findByUser(User $user): array
     {
-        return $this->createQueryBuilder('uc')
-            ->andWhere('uc.user = :user')
+        return $this->createQueryBuilder('uci')
+            ->andWhere('uci.user = :user')
             ->setParameter('user', $user)
-            ->orderBy('uc.id', 'DESC')
+            ->orderBy('uci.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
 
-    public function save(UserCollection $entity, bool $flush = true): void
+    public function save(UserCollectionItem $entity, bool $flush = true): void
     {
         $this->entityManager->persist($entity);
         if ($flush) {
@@ -47,7 +47,7 @@ class UserCollectionRepository extends EntityRepository
         }
     }
 
-    public function remove(UserCollection $entity, bool $flush = true): void
+    public function remove(UserCollectionItem $entity, bool $flush = true): void
     {
         $this->entityManager->remove($entity);
         if ($flush) {
