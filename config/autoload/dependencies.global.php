@@ -38,6 +38,7 @@ use App\Repository\OrderRepository;
 use App\Repository\OrderRepositoryFactory;
 use App\Repository\RentedCardRepository;
 use App\Repository\RentedCardRepositoryFactory;
+use App\Repository\UserCollectionRepository;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
 use App\Twig\TranslationExtension;
@@ -49,6 +50,9 @@ use Mezzio\Session\SessionMiddleware;
 use Psr\Container\ContainerInterface;
 
 return [
+    // Application configuration
+    'upload_path' => 'data/uploads',
+    
     // Provides application-wide services.
     // We recommend using fully-qualified class names whenever possible as
     // service names.
@@ -97,6 +101,7 @@ return [
             UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
             GetCartHandler::class           => GetCartHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
+            \App\Handler\MyCollectionHandler::class => \App\Handler\MyCollectionHandlerFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
             ApiHandler::class               => ApiHandlerFactory::class,
             MyAccountHandler::class         => MyAccountHandlerFactory::class,
@@ -105,8 +110,9 @@ return [
             RegisterHandler::class          => RegisterHandlerFactory::class,
 
             // Repositories
-            UserRepository::class    => UserRepositoryFactory::class,
-            MtgoBotRepository::class => MtgoBotRepositoryFactory::class,
+            UserRepository::class        => UserRepositoryFactory::class,
+            MtgoBotRepository::class     => MtgoBotRepositoryFactory::class,
+            UserCollectionRepository::class => \App\Repository\UserCollectionRepositoryFactory::class,
             OrderRepository::class   => OrderRepositoryFactory::class,
             CartRepository::class    => CartRepositoryFactory::class,
 

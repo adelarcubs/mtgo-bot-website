@@ -1,0 +1,64 @@
+{% extends "@layout/default.html.twig" %}
+
+{% block title %}My Collection{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Upload New Collection</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Collection Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dekFile" class="form-label">.dek File</label>
+                            <input class="form-control" type="file" id="dekFile" name="dek_file" accept=".dek" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>My Collections</h2>
+                </div>
+                <div class="card-body">
+                    {% if collections|length > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for collection in collections %}
+                                        <tr>
+                                            <td>{{ collection.name }}</td>
+                                            <td>{{ collection.createdAt|date('Y-m-d H:i') }}</td>
+                                            <td>
+                                                <a href="{{ path('collection_view', {id: collection.id}) }}" class="btn btn-sm btn-info">View</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p>No collections found. Upload your first .dek file above.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
