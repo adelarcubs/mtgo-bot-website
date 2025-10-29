@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Repository\RentedCardRepository;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 use function max;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: RentedCardRepository::class)]
 #[ORM\Table(name: 'rented_cards')]
 class RentedCard
 {
