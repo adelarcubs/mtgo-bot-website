@@ -1,3 +1,7 @@
+---
+trigger: manual
+---
+
 # About this project
 
 This is a mtgo bot frontend using mezzio
