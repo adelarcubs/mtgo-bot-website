@@ -1,0 +1,3 @@
+sonar.host.url=http://localhost:9001
+sonar.login=
+sonar.sources=./src

@@ -73,6 +73,7 @@
         "phpunit/phpunit": "^10.5.45",
         "psalm/plugin-phpunit": "^0.19.2",
         "roave/security-advisories": "dev-master",
+        "rogervila/php-sonarqube-scanner": "^1.1",
         "vimeo/psalm": "^6.8.8"
     },
     "conflict": {
@@ -113,6 +114,7 @@
             "Composer\\Config::disableProcessTimeout",
             "php -S 0.0.0.0:8080 -t public/"
         ],
+        "sonar" : "vendor/bin/sonar-scanner",
         "static-analysis": "psalm --stats",
         "static-analysis-update-baseline": "psalm --stats --update-baseline",
         "test": "phpunit --colors=always",
