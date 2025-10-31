@@ -85,7 +85,7 @@ class UploadCollectionHandler implements RequestHandlerInterface
 
             try {
                 // Read and process the .dek file
-                $cards = $this->dekFileReader->readDekFile($tempFilePath);
+                $cards = $this->dekFileReader->readDekFileFromStream($tempFilePath->getStream());
 
                 // Process each card from the .dek file
                 foreach ($cards as $card) {
