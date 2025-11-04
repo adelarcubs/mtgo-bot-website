@@ -10,7 +10,9 @@ use App\Factory\MtgJsonClientFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\Admin\DashboardHandler;
 use App\Handler\Admin\DashboardHandlerFactory;
+use App\Handler\Admin\Factory\ImportCardsFromSetHandlerFactory;
 use App\Handler\Admin\ImportCardSetsHandler;
+use App\Handler\Admin\ImportCardsFromSetHandler;
 use App\Handler\Admin\ListCardSetsHandler;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
@@ -121,20 +123,21 @@ return [
             TranslationExtension::class => TranslationExtensionFactory::class,
 
             // Handlers
-            ListCardSetsHandler::class      => ListCardSetsHandlerFactory::class,
-            GetOrderHandler::class          => GetOrderHandlerFactory::class,
-            OurBotsHandler::class           => OurBotsHandlerFactory::class,
-            UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
-            GetCartHandler::class           => GetCartHandlerFactory::class,
-            OurBotsHandler::class           => OurBotsHandlerFactory::class,
-            MyCollectionHandler::class      => MyCollectionHandlerFactory::class,
-            UploadCollectionHandler::class  => UploadCollectionHandlerFactory::class,
-            AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
-            ApiHandler::class               => ApiHandlerFactory::class,
-            MyAccountHandler::class         => MyAccountHandlerFactory::class,
-            LoginHandler::class             => LoginHandlerFactory::class,
-            LogoutHandler::class            => LogoutHandlerFactory::class,
-            RegisterHandler::class          => RegisterHandlerFactory::class,
+            ImportCardsFromSetHandler::class => ImportCardsFromSetHandlerFactory::class,
+            ListCardSetsHandler::class       => ListCardSetsHandlerFactory::class,
+            GetOrderHandler::class           => GetOrderHandlerFactory::class,
+            OurBotsHandler::class            => OurBotsHandlerFactory::class,
+            UploadDeckHandler::class         => UploadDeckHandlerFactory::class,
+            GetCartHandler::class            => GetCartHandlerFactory::class,
+            OurBotsHandler::class            => OurBotsHandlerFactory::class,
+            MyCollectionHandler::class       => MyCollectionHandlerFactory::class,
+            UploadCollectionHandler::class   => UploadCollectionHandlerFactory::class,
+            AuthenticationMiddleware::class  => AuthenticationMiddlewareFactory::class,
+            ApiHandler::class                => ApiHandlerFactory::class,
+            MyAccountHandler::class          => MyAccountHandlerFactory::class,
+            LoginHandler::class              => LoginHandlerFactory::class,
+            LogoutHandler::class             => LogoutHandlerFactory::class,
+            RegisterHandler::class           => RegisterHandlerFactory::class,
 
             // MTGJSON Client
             MtgJsonClient::class          => MtgJsonClientFactory::class,

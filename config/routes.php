@@ -96,6 +96,11 @@ $registerAdminRoutes = function (Application $app, ContainerInterface $container
     $app->route('/admin/mtgo-sets/import', [
         App\Handler\Admin\ImportCardSetsHandler::class,
     ], ['GET', 'POST'], 'admin.mtgo-sets.import');
+    
+    // Import cards from a specific set
+    $app->get('/admin/mtgo-sets/import/set-cards/:code', [
+        App\Handler\Admin\ImportCardsFromSetHandler::class,
+    ], 'admin.mtgo-sets.import-cards');
 };
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes, $registerAdminRoutes): void {

@@ -13,9 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class MtgoItem
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $id = null;
+    #[ORM\GeneratedValue(strategy: 'NONE')]
+    #[ORM\Column(type: Types::INTEGER, nullable:false)]
+    private int $id;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: false)]
     private string $name;
@@ -30,15 +30,16 @@ class MtgoItem
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $collectorNumber = null;
 
-    public function __construct(string $name, CardSet $cardSet, float $price = 0.0, ?string $collectorNumber = null)
+    public function __construct(int $id, string $name, CardSet $cardSet, float $price = 0.0, ?string $collectorNumber = null)
     {
+        $this->id              = $id;
         $this->name            = $name;
         $this->cardSet         = $cardSet;
         $this->price           = $price;
         $this->collectorNumber = $collectorNumber;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }

@@ -96,7 +96,17 @@ class MtgJsonClient implements MtgJsonClientInterface
 
         $setCode = strtoupper($setCode);
 
-        return $this->get(sprintf('%s.json', $setCode));
+        $cardList = $this->get(sprintf('%s.json', $setCode));
+
+        return array_map(function (array $card) use ($setCode) {
+            return [
+                'name'       => $card['name'],
+                'number'     => $card['number'],
+                'setCode'    => $setCode,
+                'mtgoId'     => $card['identifiers']['mtgoId'] ?? null,
+                'mtgoFoilId' => $card['identifiers']['mtgoFoilId'] ?? null,
+            ];
+        }, $cardList['data']['cards']);
     }
 
     private function handleResponse(ResponseInterface $response): array

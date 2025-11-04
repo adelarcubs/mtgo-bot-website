@@ -24,15 +24,22 @@ class MtgoItemRepository extends EntityRepository
         $this->entityManager = $entityManager;
     }
 
-    public function save(MtgoItem $mtgoItem): void
+    public function save(MtgoItem $mtgoItem, bool $flush = true): void
     {
         $this->entityManager->persist($mtgoItem);
-        $this->entityManager->flush();
+        if ($flush) {
+            $this->entityManager->flush();
+        }
     }
 
     public function remove(MtgoItem $mtgoItem): void
     {
         $this->entityManager->remove($mtgoItem);
+        $this->entityManager->flush();
+    }
+
+    public function flush(): void
+    {
         $this->entityManager->flush();
     }
 }
