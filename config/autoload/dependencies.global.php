@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use App\Factory\Admin\ListCardSetsHandlerFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\Admin\DashboardHandler;
 use App\Handler\Admin\DashboardHandlerFactory;
+use App\Handler\Admin\ListCardSetsHandler;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
 use App\Handler\Auth\LoginHandler;
@@ -29,13 +31,17 @@ use App\Handler\MyRentHandler;
 use App\Handler\MyRentHandlerFactory;
 use App\Handler\OurBotsHandler;
 use App\Handler\OurBotsHandlerFactory;
+use App\Middleware\AdminMiddleware;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\AuthenticationMiddlewareFactory;
+use App\Middleware\AuthMiddleware;
 use App\Middleware\LocaleMiddleware;
 use App\Middleware\LocaleMiddlewareFactory;
 use App\Middleware\SessionMiddlewareFactory;
 use App\Middleware\TemplateDataMiddleware;
 use App\Middleware\TemplateDataMiddlewareFactory;
+use App\Repository\CardSetRepository;
+use App\Repository\CardSetRepositoryFactory;
 use App\Repository\CartRepository;
 use App\Repository\CartRepositoryFactory;
 use App\Repository\MtgoBotRepository;
@@ -50,15 +56,9 @@ use App\Repository\UserCollectionItemRepository;
 use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
-use App\Repository\CardSetRepository;
-use App\Repository\CardSetRepositoryFactory;
 use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
-use App\Handler\Admin\ListCardSetsHandler;
-use App\Factory\Admin\ListCardSetsHandlerFactory;
-use App\Middleware\AuthMiddleware;
-use App\Middleware\AdminMiddleware;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\I18n\Translator\Translator;
@@ -134,7 +134,7 @@ return [
 
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,
-            CardSetRepository::class             => CardSetRepositoryFactory::class,
+            CardSetRepository::class            => CardSetRepositoryFactory::class,
             MtgoBotRepository::class            => MtgoBotRepositoryFactory::class,
             MtgoItemRepository::class           => MtgoItemRepositoryFactory::class,
             OrderRepository::class              => OrderRepositoryFactory::class,

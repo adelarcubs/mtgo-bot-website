@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Handler\Admin;
 
-use App\Entity\CardSet;
 use App\Repository\CardSetRepository;
+use Laminas\Diactoros\Response\HtmlResponse;
+use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Mezzio\Template\TemplateRendererInterface;
 
 class ListCardSetsHandler implements RequestHandlerInterface
 {

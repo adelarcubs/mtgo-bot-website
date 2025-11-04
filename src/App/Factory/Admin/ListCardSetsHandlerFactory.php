@@ -6,16 +6,16 @@ namespace App\Factory\Admin;
 
 use App\Handler\Admin\ListCardSetsHandler;
 use App\Repository\CardSetRepository;
-use Psr\Container\ContainerInterface;
 use Mezzio\Template\TemplateRendererInterface;
+use Psr\Container\ContainerInterface;
 
 class ListCardSetsHandlerFactory
 {
     public function __invoke(ContainerInterface $container): ListCardSetsHandler
     {
-        $template = $container->get(TemplateRendererInterface::class);
+        $template          = $container->get(TemplateRendererInterface::class);
         $cardSetRepository = $container->get(CardSetRepository::class);
-        
+
         return new ListCardSetsHandler($template, $cardSetRepository);
     }
 }
