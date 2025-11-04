@@ -59,7 +59,7 @@ class DekFileReader
 
         // Process all cards
         foreach ($xml->xpath('//Cards') as $cardElement) {
-            $card = $this->createDekCardFromElement($cardElement);
+            $card                     = $this->createDekCardFromElement($cardElement);
             $cards[$card->mtgoItemId] = $card;
         }
 

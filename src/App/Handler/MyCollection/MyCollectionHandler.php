@@ -38,12 +38,11 @@ class MyCollectionHandler implements RequestHandlerInterface
             return new HtmlResponse($this->renderer->render('error::404'), 404);
         }
 
-        $collectionItems = $this->collectionItemRepository->findByUser($user);
+        // Get all user's collection items with quantity > 0
+        $collectionItems = $this->collectionItemRepository->findNonZeroQuantityByUser($user);
 
         return new HtmlResponse($this->renderer->render('app::my-collection/index', [
             'collectionItems' => $collectionItems,
         ]));
     }
-
-    // Upload functionality has been moved to UploadCollectionHandler
 }

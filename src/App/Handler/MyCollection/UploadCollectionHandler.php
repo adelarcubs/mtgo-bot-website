@@ -22,6 +22,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 
 use function error_log;
+use function in_array;
 use function is_dir;
 use function mkdir;
 use function sprintf;
@@ -76,24 +77,44 @@ class UploadCollectionHandler implements RequestHandlerInterface
     private function handleFileUpload(UploadedFile $uploadedFile, User $user): void
     {
         try {
-            // Reset all quantities to 0 for the user
-            $this->collectionItemRepository->resetUserCollection($user);
+            // Get all existing user collection items and create a map
+            $existingItems = $this->collectionItemRepository->findByUser($user);
+            $itemMap       = [];
+            foreach ($existingItems as $item) {
+                $itemMap[$item->getMtgoItem()->getId()] = $item;
+            }
 
             // Read and process the .dek file
-            $cards = $this->dekFileReader->readDekFileFromStream((string) $uploadedFile->getStream());
+            $cards          = $this->dekFileReader->readDekFileFromStream((string) $uploadedFile->getStream());
+            $updatedMtgoIds = [];
 
             // Process each card from the .dek file
             foreach ($cards as $card) {
                 $mtgoItem = $this->mtgoItemRepository->find($card->mtgoItemId);
                 if (! $mtgoItem) {
-                    //throw new RuntimeException(sprintf('MtgoItem with id "%s" not found', $card->mtgoItemId));
                     continue;
                 }
-                $quantity       = $card->quantity;
-                $collectionItem = new UserCollectionItem($user, $mtgoItem, $quantity);
 
-                $this->collectionItemRepository->save($collectionItem, false);
+                $mtgoId           = $mtgoItem->getId();
+                $updatedMtgoIds[] = $mtgoId;
+
+                if (isset($itemMap[$mtgoId])) {
+                    // Update existing item
+                    $itemMap[$mtgoId]->setQuantity($card->quantity);
+                } else {
+                    // Create new collection item
+                    $collectionItem = new UserCollectionItem($user, $mtgoItem, $card->quantity);
+                    $this->entityManager->persist($collectionItem);
+                }
             }
+
+            // Set quantity to 0 for items not in the DEK file
+            foreach ($itemMap as $mtgoId => $item) {
+                if (! in_array($mtgoId, $updatedMtgoIds)) {
+                    $item->setQuantity(0);
+                }
+            }
+
             $this->entityManager->flush();
         } catch (Exception $e) {
             error_log(sprintf('Error processing .dek file: %s', $e->getMessage()));

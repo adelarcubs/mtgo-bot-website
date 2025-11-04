@@ -29,10 +29,27 @@ class UserCollectionItemRepository extends EntityRepository
     /**
      * @return UserCollectionItem[]
      */
+    /**
+     * @return UserCollectionItem[]
+     */
     public function findByUser(User $user): array
     {
         return $this->createQueryBuilder('uci')
             ->andWhere('uci.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('uci.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return UserCollectionItem[]
+     */
+    public function findNonZeroQuantityByUser(User $user): array
+    {
+        return $this->createQueryBuilder('uci')
+            ->where('uci.user = :user')
+            ->andWhere('uci.quantity > 0')
             ->setParameter('user', $user)
             ->orderBy('uci.id', 'DESC')
             ->getQuery()
