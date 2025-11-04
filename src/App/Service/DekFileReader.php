@@ -37,7 +37,7 @@ class DekFileReader
 
     public function readDekFileFromStream(string $fileStream): array
     {
-                libxml_use_internal_errors(true);
+        libxml_use_internal_errors(true);
         $xml = simplexml_load_string($fileStream);
 
         if ($xml === false) {
@@ -50,13 +50,17 @@ class DekFileReader
         return $this->readCards($xml);
     }
 
+    /**
+     * @return array<int, DekCard> Array of DekCard objects indexed by mtgoItemId
+     */
     private function readCards(SimpleXMLElement $xml): array
     {
         $cards = [];
 
         // Process all cards
         foreach ($xml->xpath('//Cards') as $cardElement) {
-            $cards[] = $this->createDekCardFromElement($cardElement);
+            $card = $this->createDekCardFromElement($cardElement);
+            $cards[$card->mtgoItemId] = $card;
         }
 
         return $cards;
