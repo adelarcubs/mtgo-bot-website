@@ -6,8 +6,18 @@ namespace App\Client;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
+
+use function json_decode;
+use function json_last_error;
+use function json_last_error_msg;
+use function ltrim;
+use function sprintf;
+use function strtoupper;
+
+use const JSON_ERROR_NONE;
 
 class MtgJsonClient implements MtgJsonClientInterface
 {
@@ -19,11 +29,11 @@ class MtgJsonClient implements MtgJsonClientInterface
     {
         $this->client = new GuzzleClient([
             'base_uri' => self::BASE_URI,
-            'headers' => [
+            'headers'  => [
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
+                'Accept'       => 'application/json',
             ],
-            'timeout' => 30,
+            'timeout'  => 30,
         ]);
     }
 
@@ -70,22 +80,22 @@ class MtgJsonClient implements MtgJsonClientInterface
     {
         return $this->get('SetList.json');
     }
-    
+
     public function getSet(string $setCode): array
     {
         if (empty($setCode)) {
-            throw new \InvalidArgumentException('Set code cannot be empty');
+            throw new InvalidArgumentException('Set code cannot be empty');
         }
 
         $setCode = strtoupper($setCode);
-        
+
         return $this->get(sprintf('%s.json', $setCode));
     }
 
     private function handleResponse(ResponseInterface $response): array
     {
         $content = $response->getBody()->getContents();
-        $data = json_decode($content, true);
+        $data    = json_decode($content, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new RuntimeException(

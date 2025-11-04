@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Client\MtgJsonClient;
+use App\Client\MtgJsonClientInterface;
 use App\Factory\Admin\ListCardSetsHandlerFactory;
+use App\Factory\MtgJsonClientFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\Admin\DashboardHandler;
 use App\Handler\Admin\DashboardHandlerFactory;
@@ -31,10 +34,8 @@ use App\Handler\MyRentHandler;
 use App\Handler\MyRentHandlerFactory;
 use App\Handler\OurBotsHandler;
 use App\Handler\OurBotsHandlerFactory;
-use App\Middleware\AdminMiddleware;
 use App\Middleware\AuthenticationMiddleware;
 use App\Middleware\AuthenticationMiddlewareFactory;
-use App\Middleware\AuthMiddleware;
 use App\Middleware\LocaleMiddleware;
 use App\Middleware\LocaleMiddlewareFactory;
 use App\Middleware\SessionMiddlewareFactory;
@@ -56,8 +57,6 @@ use App\Repository\UserCollectionItemRepository;
 use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
-use App\Client\MtgJsonClient;
-use App\Client\MtgJsonClientInterface;
 use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
@@ -135,8 +134,8 @@ return [
             RegisterHandler::class          => RegisterHandlerFactory::class,
 
             // MTGJSON Client
-            MtgJsonClient::class                => \App\Factory\MtgJsonClientFactory::class,
-            MtgJsonClientInterface::class       => MtgJsonClient::class,
+            MtgJsonClient::class          => MtgJsonClientFactory::class,
+            MtgJsonClientInterface::class => MtgJsonClient::class,
 
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,
@@ -149,12 +148,6 @@ return [
             UserCollectionItemRepository::class => UserCollectionItemRepositoryFactory::class,
 
             // Middleware
-            AuthMiddleware::class         => function (ContainerInterface $container) {
-                return new AuthMiddleware();
-            },
-            AdminMiddleware::class        => function (ContainerInterface $container) {
-                return new AdminMiddleware();
-            },
             SessionMiddleware::class      => SessionMiddlewareFactory::class,
             TemplateDataMiddleware::class => TemplateDataMiddlewareFactory::class,
             LocaleMiddleware::class       => LocaleMiddlewareFactory::class,
