@@ -22,12 +22,9 @@ use Psr\Http\Server\RequestHandlerInterface;
 use RuntimeException;
 
 use function error_log;
-use function file_exists;
 use function is_dir;
 use function mkdir;
 use function sprintf;
-use function uniqid;
-use function unlink;
 
 use const UPLOAD_ERR_OK;
 
@@ -79,34 +76,22 @@ class UploadCollectionHandler implements RequestHandlerInterface
     private function handleFileUpload(UploadedFile $uploadedFile, User $user): void
     {
         try {
-            // Save the uploaded file temporarily
-            $tempFilePath = $this->uploadPath . '/' . uniqid('dek_', true) . '.dek';
-            $uploadedFile->moveTo($tempFilePath);
+            // Read and process the .dek file
+            $cards = $this->dekFileReader->readDekFileFromStream((string) $uploadedFile->getStream());
 
-            try {
-                // Read and process the .dek file
-                $cards = $this->dekFileReader->readDekFileFromStream($tempFilePath->getStream());
-
-                // Process each card from the .dek file
-                foreach ($cards as $card) {
-                    $mtgoItem = $this->mtgoItemRepository->find($card->mtgoItemId);
-                    if (! $mtgoItem) {
-                        //throw new RuntimeException(sprintf('MtgoItem with id "%s" not found', $card->mtgoItemId));
-                        continue;
-                    }
-                    $quantity       = $card->quantity;
-                    $collectionItem = new UserCollectionItem($user, $mtgoItem, $quantity);
-
-                    $this->collectionItemRepository->save($collectionItem, false);
+            // Process each card from the .dek file
+            foreach ($cards as $card) {
+                $mtgoItem = $this->mtgoItemRepository->find($card->mtgoItemId);
+                if (! $mtgoItem) {
+                    //throw new RuntimeException(sprintf('MtgoItem with id "%s" not found', $card->mtgoItemId));
+                    continue;
                 }
+                $quantity       = $card->quantity;
+                $collectionItem = new UserCollectionItem($user, $mtgoItem, $quantity);
 
-                $this->entityManager->flush();
-            } finally {
-                // Clean up the temporary file
-                if (file_exists($tempFilePath)) {
-                    unlink($tempFilePath);
-                }
+                $this->collectionItemRepository->save($collectionItem, false);
             }
+            $this->entityManager->flush();
         } catch (Exception $e) {
             error_log(sprintf('Error processing .dek file: %s', $e->getMessage()));
             throw $e; // Re-throw to be handled by the error handler

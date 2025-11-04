@@ -30,9 +30,9 @@
                                 <tbody>
                                     {% for item in collectionItems %}
                                         <tr>
-                                            <td>{{ item.mtgoItemId }}</td>
+                                            <td>{{ item.mtgoItem.Id }}</td>
                                             <td>{{ item.quantity }}</td>
-                                            <td>{{ item.createdAt|date('Y-m-d H:i') }}</td>
+                                            <td>{#{ item.createdAt|date('Y-m-d H:i') }#}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

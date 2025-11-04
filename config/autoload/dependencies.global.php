@@ -51,6 +51,7 @@ use App\Repository\UserRepositoryFactory;
 use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
@@ -71,6 +72,7 @@ return [
             // Fully\Qualified\ClassOrInterfaceName::class => Fully\Qualified\ClassName::class,
             // We'll handle the translator interface in the factories
             EntityManagerInterface::class => 'doctrine.entity_manager.orm_default',
+            EntityManager::class          => 'doctrine.entity_manager.orm_default',
         ],
         // Use 'invokables' for constructor-less services, or services that do
         // not require arguments to the constructor. Map a service name to the
