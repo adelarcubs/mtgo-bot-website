@@ -39,3 +39,7 @@ src/
 ## Factory Rules
 - All Repository and Handler classes must have a factory
 - Always create variables for container services
+
+## Routes Rules
+- Never use AuthMiddleware in routes
+- Only add an handler for route, never mover than one

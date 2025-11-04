@@ -89,11 +89,10 @@ $registerAuthenticatedRoutes = function (Application $app): void {
  * Register admin routes
  */
 $registerAdminRoutes = function (Application $app, ContainerInterface $container): void {
-    $app->get('/admin', [
-        App\Handler\Admin\DashboardHandler::class,
-    ], 'admin.dashboard');
+    $app->get('/admin', App\Handler\Admin\DashboardHandler::class, 'admin.dashboard');
     
-    // Add more admin routes here
+    // MTGO Sets management
+    $app->get('/admin/mtgo-sets', App\Handler\Admin\ListCardSetsHandler::class, 'admin.mtgo-sets.list');
 };
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes, $registerAdminRoutes): void {

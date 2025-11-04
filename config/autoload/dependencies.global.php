@@ -50,9 +50,15 @@ use App\Repository\UserCollectionItemRepository;
 use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
+use App\Repository\CardSetRepository;
+use App\Repository\CardSetRepositoryFactory;
 use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
+use App\Handler\Admin\ListCardSetsHandler;
+use App\Factory\Admin\ListCardSetsHandlerFactory;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\AdminMiddleware;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\I18n\Translator\Translator;
@@ -111,6 +117,7 @@ return [
             TranslationExtension::class => TranslationExtensionFactory::class,
 
             // Handlers
+            ListCardSetsHandler::class      => ListCardSetsHandlerFactory::class,
             GetOrderHandler::class          => GetOrderHandlerFactory::class,
             OurBotsHandler::class           => OurBotsHandlerFactory::class,
             UploadDeckHandler::class        => UploadDeckHandlerFactory::class,
@@ -127,6 +134,7 @@ return [
 
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,
+            CardSetRepository::class             => CardSetRepositoryFactory::class,
             MtgoBotRepository::class            => MtgoBotRepositoryFactory::class,
             MtgoItemRepository::class           => MtgoItemRepositoryFactory::class,
             OrderRepository::class              => OrderRepositoryFactory::class,
@@ -135,6 +143,12 @@ return [
             UserCollectionItemRepository::class => UserCollectionItemRepositoryFactory::class,
 
             // Middleware
+            AuthMiddleware::class         => function (ContainerInterface $container) {
+                return new AuthMiddleware();
+            },
+            AdminMiddleware::class        => function (ContainerInterface $container) {
+                return new AdminMiddleware();
+            },
             SessionMiddleware::class      => SessionMiddlewareFactory::class,
             TemplateDataMiddleware::class => TemplateDataMiddlewareFactory::class,
             LocaleMiddleware::class       => LocaleMiddlewareFactory::class,
