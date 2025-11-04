@@ -31,6 +31,7 @@ src/
 - All Entity classes must use attributes to define relationships for Doctrine ORM
 - All Entity classes must use attributes to define table name for Doctrine ORM
 - All Entity classes must use attributes to define repository class for Doctrine ORM
+- Fields such as createdAt, updatedAt, deletedAt must use DateTimeImmutable class
 
 ## Entity Repository Rules
 - Do not use ServiceEntityRepository class for Repositories, use EntityManagerInterface instead
