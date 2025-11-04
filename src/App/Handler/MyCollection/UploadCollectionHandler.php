@@ -76,6 +76,9 @@ class UploadCollectionHandler implements RequestHandlerInterface
     private function handleFileUpload(UploadedFile $uploadedFile, User $user): void
     {
         try {
+            // Reset all quantities to 0 for the user
+            $this->collectionItemRepository->resetUserCollection($user);
+
             // Read and process the .dek file
             $cards = $this->dekFileReader->readDekFileFromStream((string) $uploadedFile->getStream());
 

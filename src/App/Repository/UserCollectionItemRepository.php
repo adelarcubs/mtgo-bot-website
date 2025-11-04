@@ -47,6 +47,17 @@ class UserCollectionItemRepository extends EntityRepository
         }
     }
 
+    public function resetUserCollection(User $user): void
+    {
+        $this->createQueryBuilder('uci')
+            ->update()
+            ->set('uci.quantity', 0)
+            ->where('uci.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
+
     public function remove(UserCollectionItem $entity, bool $flush = true): void
     {
         $this->entityManager->remove($entity);
