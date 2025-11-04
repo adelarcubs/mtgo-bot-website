@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Factory\Admin;
 
+use App\Client\MtgJsonClientInterface;
 use App\Handler\Admin\ImportCardSetsHandler;
 use App\Repository\CardSetRepository;
 use Mezzio\Template\TemplateRendererInterface;
@@ -15,7 +16,8 @@ class ImportCardSetsHandlerFactory
     {
         $template          = $container->get(TemplateRendererInterface::class);
         $cardSetRepository = $container->get(CardSetRepository::class);
+        $mtgJsonClient     = $container->get(MtgJsonClientInterface::class);
 
-        return new ImportCardSetsHandler($template, $cardSetRepository);
+        return new ImportCardSetsHandler($template, $cardSetRepository, $mtgJsonClient);
     }
 }

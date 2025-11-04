@@ -24,15 +24,27 @@ class CardSetRepository extends EntityRepository
         $this->entityManager = $entityManager;
     }
 
-    public function save(CardSet $cardSet): void
+    public function save(CardSet $cardSet, bool $flush = true): void
     {
         $this->entityManager->persist($cardSet);
-        $this->entityManager->flush();
+        if ($flush) {
+            $this->entityManager->flush();
+        }
     }
 
     public function remove(CardSet $cardSet): void
     {
         $this->entityManager->remove($cardSet);
         $this->entityManager->flush();
+    }
+
+    public function flush(): void
+    {
+        $this->getEntityManager()->flush();
+    }
+
+    public function findOneByCode(string $code): ?CardSet
+    {
+        return $this->findOneBy(['code' => $code]);
     }
 }

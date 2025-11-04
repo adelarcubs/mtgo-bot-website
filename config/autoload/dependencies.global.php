@@ -138,7 +138,7 @@ return [
 
             // MTGJSON Client
             MtgJsonClient::class          => MtgJsonClientFactory::class,
-            MtgJsonClientInterface::class => MtgJsonClient::class,
+            MtgJsonClientInterface::class => MtgJsonClientFactory::class,
 
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,

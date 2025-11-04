@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Client;
 
+use App\Dto\MtgJsonSetDto;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 
+use function array_map;
 use function json_decode;
 use function json_last_error;
 use function json_last_error_msg;
@@ -29,6 +31,7 @@ class MtgJsonClient implements MtgJsonClientInterface
     {
         $this->client = new GuzzleClient([
             'base_uri' => self::BASE_URI,
+            'verify'   => false, // Disable SSL verification (not recommended for production)
             'headers'  => [
                 'Content-Type' => 'application/json',
                 'Accept'       => 'application/json',
@@ -78,7 +81,11 @@ class MtgJsonClient implements MtgJsonClientInterface
 
     public function getSetList(): array
     {
-        return $this->get('SetList.json');
+        $setList = $this->get('SetList.json');
+
+        return array_map(function (array $set) {
+            return new MtgJsonSetDto($set['code'], $set['name']);
+        }, $setList['data']);
     }
 
     public function getSet(string $setCode): array

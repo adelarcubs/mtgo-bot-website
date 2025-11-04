@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Client;
 
+use App\Dto\MtgJsonSetDto;
+
 interface MtgJsonClientInterface
 {
     public function get(string $endpoint, array $query = []): array;
@@ -13,7 +15,7 @@ interface MtgJsonClientInterface
     /**
      * Get a list of all MTG sets
      *
-     * @return array Array containing set information
+     * @return MtgJsonSetDto[] Array containing set information
      * @throws RuntimeException If the request fails
      */
     public function getSetList(): array;
