@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 use App\Client\MtgJsonClient;
 use App\Client\MtgJsonClientInterface;
+use App\Factory\Admin\ImportCardSetsHandlerFactory;
 use App\Factory\Admin\ListCardSetsHandlerFactory;
 use App\Factory\MtgJsonClientFactory;
 use App\Factory\TranslatorFactory;
 use App\Handler\Admin\DashboardHandler;
 use App\Handler\Admin\DashboardHandlerFactory;
+use App\Handler\Admin\ImportCardSetsHandler;
 use App\Handler\Admin\ListCardSetsHandler;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
@@ -93,8 +95,9 @@ return [
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
         // Admin handlers
-            DashboardHandler::class => DashboardHandlerFactory::class,
-        // Repositories
+            DashboardHandler::class      => DashboardHandlerFactory::class,
+            ImportCardSetsHandler::class => ImportCardSetsHandlerFactory::class,
+            // Repositories
             RentedCardRepository::class => RentedCardRepositoryFactory::class,
 
         // Handlers
