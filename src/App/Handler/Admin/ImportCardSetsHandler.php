@@ -37,7 +37,7 @@ class ImportCardSetsHandler implements RequestHandlerInterface
         foreach ($setList as $set) {
             $loadedSet = $this->cardSetRepository->findOneByCode($set->code);
             if (! $loadedSet) {
-                $loadedSet = new CardSet($set->code, $set->name);
+                $loadedSet = new CardSet($set->name, $set->code);
             }
             $this->cardSetRepository->save($loadedSet, false);
         }
