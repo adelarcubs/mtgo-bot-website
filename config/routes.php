@@ -5,6 +5,9 @@ declare(strict_types=1);
 use Mezzio\Application;
 use Mezzio\MiddlewareFactory;
 use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Mezzio\Template\TemplateRendererInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * laminas-router route configuration
@@ -82,9 +85,23 @@ $registerAuthenticatedRoutes = function (Application $app): void {
     $app->get('/cart', [App\Handler\Cart\GetCartHandler::class], 'cart');
 };
 
-return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes): void {
+/**
+ * Register admin routes
+ */
+$registerAdminRoutes = function (Application $app, ContainerInterface $container): void {
+    $app->get('/admin', [
+        App\Handler\Admin\DashboardHandler::class,
+    ], 'admin.dashboard');
+    
+    // Add more admin routes here
+};
+
+return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) use ($registerPublicRoutes, $registerApiRoutes, $registerAuthenticatedRoutes, $registerAdminRoutes): void {
     // Register all route groups
     $registerPublicRoutes($app);
     $registerApiRoutes($app);
     $registerAuthenticatedRoutes($app);
+    
+    // Register admin routes
+    $registerAdminRoutes($app, $container);
 };

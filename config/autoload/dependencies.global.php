@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use App\Factory\TranslatorFactory;
+use App\Handler\Admin\DashboardHandler;
+use App\Handler\Admin\DashboardHandlerFactory;
 use App\Handler\ApiHandler;
 use App\Handler\ApiHandlerFactory;
 use App\Handler\Auth\LoginHandler;
@@ -83,6 +85,8 @@ return [
         ],
         // Use 'factories' for services provided by callbacks/factory classes.
         'factories' => [
+        // Admin handlers
+            DashboardHandler::class => DashboardHandlerFactory::class,
         // Repositories
             RentedCardRepository::class => RentedCardRepositoryFactory::class,
 

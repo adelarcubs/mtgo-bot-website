@@ -1,0 +1,27 @@
+<div class="admin-sidebar">
+    <div class="list-group list-group-flush">
+        <a href="{{ path('admin.dashboard') }}" class="list-group-item list-group-item-action {#{ current_route('admin.dashboard') ? 'active' : '' }#}">
+            <i class="fas fa-tachometer-alt fa-fw mr-2"></i> Dashboard
+        </a>
+        
+        <div class="list-group-item">
+            <h6 class="mb-1">Content</h6>
+        </div>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fas fa-users fa-fw mr-2"></i> Users
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fas fa-shopping-cart fa-fw mr-2"></i> Orders
+        </a>
+        
+        <div class="list-group-item">
+            <h6 class="mb-1">System</h6>
+        </div>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fas fa-cog fa-fw mr-2"></i> Settings
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+            <i class="fas fa-tools fa-fw mr-2"></i> Maintenance
+        </a>
+    </div>
+</div>
