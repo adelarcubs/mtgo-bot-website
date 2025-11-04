@@ -56,6 +56,8 @@ use App\Repository\UserCollectionItemRepository;
 use App\Repository\UserCollectionItemRepositoryFactory;
 use App\Repository\UserRepository;
 use App\Repository\UserRepositoryFactory;
+use App\Client\MtgJsonClient;
+use App\Client\MtgJsonClientInterface;
 use App\Service\DekFileReader;
 use App\Twig\TranslationExtension;
 use App\Twig\TranslationExtensionFactory;
@@ -131,6 +133,10 @@ return [
             LoginHandler::class             => LoginHandlerFactory::class,
             LogoutHandler::class            => LogoutHandlerFactory::class,
             RegisterHandler::class          => RegisterHandlerFactory::class,
+
+            // MTGJSON Client
+            MtgJsonClient::class                => \App\Factory\MtgJsonClientFactory::class,
+            MtgJsonClientInterface::class       => MtgJsonClient::class,
 
             // Repositories
             UserRepository::class               => UserRepositoryFactory::class,
