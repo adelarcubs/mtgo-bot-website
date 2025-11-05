@@ -8,6 +8,7 @@ use App\Client\MtgJsonClientInterface;
 use App\Entity\MtgoItem;
 use App\Repository\CardSetRepository;
 use App\Repository\MtgoItemRepository;
+use DateTimeImmutable;
 use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -36,6 +37,8 @@ class ImportCardsFromSetHandler implements RequestHandlerInterface
         // Get the set data from MTG JSON
         $setData = $this->mtgJsonClient->getSet($setCode);
 
+        $cardSet->setLastImportItemsAt(new DateTimeImmutable());
+
         $idList = ['mtgoId', 'mtgoFoilId'];
         foreach ($setData as $cardData) {
             foreach ($idList as $idName) {
@@ -60,7 +63,7 @@ class ImportCardsFromSetHandler implements RequestHandlerInterface
                 }
             }
         }
-
+        $this->cardSetRepository->save($cardSet,false);
         $this->mtgoItemRepository->flush();
 
         return new JsonResponse([

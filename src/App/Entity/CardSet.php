@@ -42,6 +42,9 @@ class CardSet
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeImmutable $lastImportAt = null;
 
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $lastImportItemsAt = null;
+
     public function __construct(string $name, string $code)
     {
         $this->name      = $name;
@@ -129,6 +132,17 @@ class CardSet
     public function setBaseSetSize(?int $baseSetSize): self
     {
         $this->baseSetSize = $baseSetSize;
+        return $this;
+    }
+
+    public function getLastImportItemsAt(): ?DateTimeImmutable
+    {
+        return $this->lastImportItemsAt;
+    }
+
+    public function setLastImportItemsAt(DateTimeImmutable $lastImportItemsAt): self
+    {
+        $this->lastImportItemsAt = $lastImportItemsAt;
         return $this;
     }
 
