@@ -56,6 +56,48 @@
                 });
             }
             
+            // Handle Import All Cards button click
+            const importAllCardsBtn = document.getElementById('import-all-cards-btn');
+            if (importAllCardsBtn) {
+                importAllCardsBtn.addEventListener('click', function() {
+                    const importButtons = document.querySelectorAll('.import-cards');
+                    if (importButtons.length > 0) {
+                        // Show a confirmation dialog
+                        if (confirm(`Are you sure you want to import cards for all ${importButtons.length} sets? This may take a while.`)) {
+                            // Disable the import all button
+                            importAllCardsBtn.disabled = true;
+                            importAllCardsBtn.innerHTML = `
+                                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                Importing...
+                            `;
+                            
+                            // Click all import buttons with a small delay between each
+                            let delay = 0;
+                            importButtons.forEach((btn, index) => {
+                                setTimeout(() => {
+                                    if (!btn.disabled) {
+                                        btn.click();
+                                    }
+                                    
+                                    // Re-enable the import all button after the last import starts
+                                    if (index === importButtons.length - 1) {
+                                        setTimeout(() => {
+                                            importAllCardsBtn.disabled = false;
+                                            importAllCardsBtn.innerHTML = `
+                                                <i class="bi bi-download-all"></i> Import All Cards
+                                            `;
+                                        }, 1000);
+                                    }
+                                }, delay);
+                                delay += 1000; // 1 second delay between each import
+                            });
+                        }
+                    } else {
+                        showToast('No importable sets found', 'warning');
+                    }
+                });
+            }
+            
             // Handle Import Cards button clicks
             // Add click event listener to all import buttons
             document.querySelectorAll('.import-cards').forEach(button => {
@@ -171,9 +213,14 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">MTGO Sets</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <button type="button" id="import-sets-btn" class="btn btn-sm btn-outline-success">
-                <i class="bi bi-download"></i> Import Sets
-            </button>
+            <div class="btn-group me-2">
+                <button type="button" id="import-sets-btn" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-download"></i> Import Sets
+                </button>
+                <button type="button" id="import-all-cards-btn" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-download-all"></i> Import All Cards
+                </button>
+            </div>
         </div>
     </div>
 

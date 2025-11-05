@@ -63,7 +63,7 @@ class ImportCardsFromSetHandler implements RequestHandlerInterface
                 }
             }
         }
-        $this->cardSetRepository->save($cardSet,false);
+        $this->cardSetRepository->save($cardSet, false);
         $this->mtgoItemRepository->flush();
 
         return new JsonResponse([

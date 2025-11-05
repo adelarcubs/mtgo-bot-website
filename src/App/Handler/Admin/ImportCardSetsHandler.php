@@ -34,7 +34,7 @@ class ImportCardSetsHandler implements RequestHandlerInterface
         */
 
         $setList = $this->mtgJsonClient->getSetList();
-        $now = new DateTimeImmutable();
+        $now     = new DateTimeImmutable();
         foreach ($setList as $set) {
             $loadedSet = $this->cardSetRepository->findOneByCode($set->code);
             if (! $loadedSet) {
