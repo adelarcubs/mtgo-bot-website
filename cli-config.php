@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Doctrine\ORM\EntityManagerInterface;
 use Laminas\ServiceManager\ServiceManager;
 
 // Load application configuration
@@ -18,5 +19,5 @@ if (is_callable($config)) {
 
 // Return the entity manager helper set
 return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet(
-    $container->get('doctrine.entity_manager.orm_default')
+    $container->get(EntityManagerInterface::class)
 );
