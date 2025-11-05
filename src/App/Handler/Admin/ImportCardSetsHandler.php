@@ -7,6 +7,7 @@ namespace App\Handler\Admin;
 use App\Client\MtgJsonClientInterface;
 use App\Entity\CardSet;
 use App\Repository\CardSetRepository;
+use DateTimeImmutable;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -33,12 +34,13 @@ class ImportCardSetsHandler implements RequestHandlerInterface
         */
 
         $setList = $this->mtgJsonClient->getSetList();
-
+        $now = new DateTimeImmutable();
         foreach ($setList as $set) {
             $loadedSet = $this->cardSetRepository->findOneByCode($set->code);
             if (! $loadedSet) {
                 $loadedSet = new CardSet($set->name, $set->code);
             }
+            $loadedSet->setLastImportAt($now);
             $this->cardSetRepository->save($loadedSet, false);
         }
 

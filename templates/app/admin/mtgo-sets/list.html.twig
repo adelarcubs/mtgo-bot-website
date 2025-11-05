@@ -184,6 +184,7 @@
                     <th>Name</th>
                     <th>Code</th>
                     <th>Release Date</th>
+                    <th>Last Import</th>
                     <th>Cards</th>
                     <th>Actions</th>
                 </tr>
@@ -194,6 +195,7 @@
                         <td>{{ set.name }}</td>
                         <td><code>{{ set.code }}</code></td>
                         <td>{{ set.release ? set.release|date('Y-m-d') : 'N/A' }}</td>
+                        <td>{{ set.lastImportAt ? set.lastImportAt|date('Y-m-d H:i:s') : 'Never' }}</td>
                         <td>
                             {% if set.totalSetSize %}
                                 {{ set.totalSetSize }} (Base: {{ set.baseSetSize ?? 'N/A' }})
@@ -217,7 +219,7 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" class="text-center">No MTGO sets found.</td>
+                        <td colspan="6" class="text-center">No MTGO sets found.</td>
                     </tr>
                 {% endfor %}
             </tbody>
