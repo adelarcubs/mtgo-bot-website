@@ -93,12 +93,12 @@ $registerAdminRoutes = function (Application $app, ContainerInterface $container
     
     // MTGO Sets management
     $app->get('/admin/mtgo-sets', App\Handler\Admin\ListCardSetsHandler::class, 'admin.mtgo-sets.list');
-    $app->route('/admin/mtgo-sets/import', [
+    $app->post('/admin/mtgo-sets/import', [
         App\Handler\Admin\ImportCardSetsHandler::class,
-    ], ['GET', 'POST'], 'admin.mtgo-sets.import');
+    ], 'admin.mtgo-sets.import');
     
     // Import cards from a specific set
-    $app->get('/admin/mtgo-sets/import/set-cards/:code', [
+    $app->post('/admin/mtgo-sets/import/set-cards/:code', [
         App\Handler\Admin\ImportCardsFromSetHandler::class,
     ], 'admin.mtgo-sets.import-cards');
 };

@@ -8,6 +8,7 @@ use App\Client\MtgJsonClientInterface;
 use App\Entity\MtgoItem;
 use App\Repository\CardSetRepository;
 use App\Repository\MtgoItemRepository;
+use Laminas\Diactoros\Response\JsonResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -62,6 +63,9 @@ class ImportCardsFromSetHandler implements RequestHandlerInterface
 
         $this->mtgoItemRepository->flush();
 
-        return new RedirectResponse("/admin/mtgo-sets");
+        return new JsonResponse([
+            'status'  => 'success',
+            'message' => 'Cards imported successfully',
+        ]);
     }
 }

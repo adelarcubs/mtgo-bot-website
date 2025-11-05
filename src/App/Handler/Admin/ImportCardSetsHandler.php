@@ -7,7 +7,7 @@ namespace App\Handler\Admin;
 use App\Client\MtgJsonClientInterface;
 use App\Entity\CardSet;
 use App\Repository\CardSetRepository;
-use Laminas\Diactoros\Response\RedirectResponse;
+use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -44,6 +44,9 @@ class ImportCardSetsHandler implements RequestHandlerInterface
 
         $this->cardSetRepository->flush();
 
-        return new RedirectResponse('/admin/mtgo-sets');
+        return new JsonResponse([
+            'status'  => 'success',
+            'message' => 'Sets imported successfully',
+        ]);
     }
 }
